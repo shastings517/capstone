@@ -1,17 +1,16 @@
 require("dotenv").load();
 
-var express = require("express"),
-    app = express(),
-    morgan = require("morgan"),
-    bodyParser = require("body-parser"),
-    path = require("path"),
-    routes = require('./routes'),
-    // twitter = require('twitter'),
-    io = require('socket.io').listen(server);
+var express = require("express");
+var app = express();
+var morgan = require("morgan");
+var bodyParser = require("body-parser");
+var path = require("path");
+var routes = require('./routes');
+var server = app.listen(3000);
+var io = require('socket.io').listen(server);
+var twitter = require('./routes/index');
     
 exports.io = io;
-
-var twitter = require('/routes/index');
 
 app.use(morgan("tiny"));
 app.use(bodyParser.json());
@@ -25,8 +24,4 @@ app.use('/api/auth', routes.auth);
 
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));
-});
-
-app.listen(3000, function(){
-  console.log("Server is listening on port 3000");
 });

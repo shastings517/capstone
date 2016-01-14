@@ -3,7 +3,7 @@ var app = angular.module("twitterApp", ['ngRoute','satellizer']);
 app.config(function($routeProvider, $locationProvider, $authProvider){
   $routeProvider
   .when('/home', {
-    controller: "MainController",
+    controller: "TweetController",
     templateUrl: "templates/index.html",
     resolve: {
       loginRequired: loginRequired
