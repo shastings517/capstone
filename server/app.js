@@ -6,24 +6,12 @@ var express = require("express"),
     bodyParser = require("body-parser"),
     path = require("path"),
     routes = require('./routes'),
-    twitter = require('twitter');
+    // twitter = require('twitter'),
+    io = require('socket.io').listen(server);
+    
+exports.io = io;
 
-
-    // var express = require('express');
-
-    // var user = require('./routes/user');
-    // var bodyParser = require('body-parser');
-    // var cookieParser = require('cookie-parser');
-    // var session = require('express-session');
-    // var uid = require('uid');
-    // var path = require('path');
-    // var util = require('util');
-
-    // var OAuth = require('oauth').OAuth;
-    // var twitter = require('twitter');
-
-    // var app = express();
-
+var twitter = require('/routes/index');
 
 app.use(morgan("tiny"));
 app.use(bodyParser.json());

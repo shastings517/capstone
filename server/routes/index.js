@@ -1,99 +1,109 @@
-var twitter = require('twitter');
-var express = require('express');
-var app = express();
-var http = require('http');
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
-// var util = require('util');
-// var debug = require('debug')('explorer');
+var Twit = require('twit');
+var io = require('../app').io; //THIS PROBABLY NEEDS TO BE FIXED
+// var TWEETS_BUFFER_SIZE = 3;
+var SOCKETIO_TWEETS_EVENT = 'tweet-io:tweets';
+var SOCKETIO_START_EVENT = 'tweet-io:start';
+var SOCKETIO_STOP_EVENT = 'tweet-io:stop';
+var openSockets = 0;
+var isFirstTwitterConnection = true;
 
+var T = new Twit({
+  consumer_key: process.env.TWITTER_KEY,
+  consumer_secret: process.env.TWITTER_SECRET,
+  access_token: process.env.ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.ACCESS_TOKEN_SECRET
+});
 
-exports.index = function (http) {
-    io = io(http);
-    return function (req, res) {
-        res.render('index', {title: 'Express'});
-        if (req.session.oauth) {
-            InitStream(req.session);
-        }
-    };
+console.log('listening for tweets');
+
+var stream = T.stream('statuses/filter', { track: 'trump' });
+var tweetsBuffer = [];
+var oldTweetsBuffer = [];
+
+//SOCKET.IO EVENTS
+var discardClient = function(){
+  console.log('client disconnected');
+  openSockets--;
+
+  if(openSockets <= 0){
+    openSockets = 0;
+    console.log('no active client. stop streaming tweets');
+    stream.stop();
+  }
 };
 
+var handleClient = function(data, socket){
+  if(data === true){
+    console.log('client connected');
 
+    if(openSockets <= 0){
+      openSockets = 0;
+      console.log('first active client. start streaming tweets');
+      stream.start();
 
-// var twit = new twitter({
-  // consumer_key: process.env.TWITTER_KEY,
-  // consumer_secret: process.env.TWITTER_SECRET,
-  // access_token_key: process.env.ACCESS_TOKEN_KEY,
-  // access_token_secret: process.env.ACCESS_TOKEN_SECRET
-// }),
-
-// stream = null;
-
-// io.sockets.on('connection', function (socket) {
-//   socket.on("start tweets", function(){
-//     if(stream === null) {
-//       twit.stream('statuses/filter.json', {track: "trump"}, function (stream) {
-//         stream.on('data', function (data) {
-//           // if (data.user) {
-//           //     debug(data.user.screen_name + " : " + data.text);
-//           // } else {
-//           //     debug(data);
-//           // }
-//           io.sockets.emit('newTwitt', data);
-//           console.log(data);
-//           // throw  new Exception('end');
-//       });
-//     });
-//   }
-// });
-// });
-
-
-var isActive = false;
-var InitStream = function (session) {
-    var twit = new twitter({
-      consumer_key: process.env.TWITTER_KEY,
-      consumer_secret: process.env.TWITTER_SECRET,
-      access_token_key: process.env.ACCESS_TOKEN_KEY,
-      access_token_secret: process.env.ACCESS_TOKEN_SECRET
-        // consumer_key: "A6x1nzmmmerCCmVN8zTgew",
-        // consumer_secret: "oOMuBkeqXLqoJkSklhpTrsvuZXo9VowyABS8EkAUw",
-        // access_token_key: session.oauth.access_token,
-        // access_token_secret: session.oauth.access_token_secret
-    });
-
-    if (!isActive) {
-        debug('init Stream');
-
-
-        twit.stream(
-            'statuses/filter.json',
-            {track: "trump"}, 
-            function (stream) {
-                stream.on('data', function (data) {
-                    if (data.user) {
-                        debug(data.user.screen_name + " : " + data.text);
-                    } else {
-                        debug(data);
-                    }
-                    io.sockets.emit('newTwitt', data);
-                    // console.log(data);
-                    // throw  new Exception('end');
-                });
-                stream.on('end', function (b) {
-                    debug('end stream', arguments);
-                    isActive = false;
-                    InitStream(session);
-                });
-                stream.on('destroy', function (b) {
-                    debug('destroy stream', b.toString());
-                    isActive = false;
-                    InitStream(session);
-                });
-            }
-        );
-        isActive = true;
     }
+    openSockets++;
+    //SEND OLD BUFFER TO NEW CLIENT ??? DO I WANT THIS
+    if(oldTweetsBuffer !== null && oldTweetsBuffer.length !== 0){
+      socket.emit(SOCKETIO_TWEETS_EVENT, oldTweetsBuffer);
+    }
+  }
+};
+
+io.sockets.on('connection', function(socket){
+  socket.on(SOCKETIO_START_EVENT, function(data){
+    handleClient(data, socket);
+  });
+  
+  socket.on(SOCKETIO_STOP_EVENT, discardClient);
+
+  socket.on('disconnect', discardClient);
+});
+
+//TWITTER EVENT LOGIC
+stream.on('connect', function(request){
+  console.log('connected to twitter stream');
+
+  //PROBABLY DONT NEED THIS LOGIC
+  if(isFirstTwitterConnection){
+    isFirstTwitterConnection = false;
+    stream.stop();
+  }
+});
+
+stream.on('disconnect', function(message){
+  console.log('disconnected from twitter stream. ' + message);
+});
+
+stream.on('reconnect', function(request, response, connectInterval){
+  console.log('trying to reconnect to twitter stream in ' + connectInterval);
+});
+
+stream.on('tweet', function (tweet) {
+  console.log(tweet);
+  
+  var msg = {};
+  
+  msg.text = tweet.text;
+  msg.location = tweet.place.full_name;
+  msg.user = {
+    name: tweet.user.name,
+    image: tweet.user.profile_image_url
+  };
+
+  tweetsBuffer.push(msg);
+
+  broadcastTweets();
+});
+
+var broadcastTweets = function(){
+  //NOT SURE IF NEED BUFFER
+  // if(tweetsBuffer.length >= TWEETS_BUFFER_SIZE){
+    io.sockets.emit(SOCKETIO_TWEETS_EVENT, tweetsBuffer);
+
+    // oldTweetsBuffer = tweetsBuffer;
+    // tweetsBuffer = [];
+  // }
 };
 
 
