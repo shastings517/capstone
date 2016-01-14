@@ -1,4 +1,4 @@
-var app = angular.module("satapp", ['ngRoute','satellizer']);
+var app = angular.module("twitterApp", ['ngRoute','satellizer']);
 
 app.config(function($routeProvider, $locationProvider, $authProvider){
   $routeProvider
@@ -31,22 +31,9 @@ app.config(function($routeProvider, $locationProvider, $authProvider){
 
   $locationProvider.html5Mode(true);
 
-  // $authProvider.facebook({
-  //   clientId: '297860257039585',
-  //   url: '/api/auth/facebook'
-  // });
   $authProvider.twitter({
     url: '/api/auth/twitter'
   });
-  // $authProvider.twitter({
-  //   url: '/auth/twitter',
-  //   authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
-  //   redirectUri: window.location.origin,
-  //   type: '1.0',
-  //   popupOptions: { width: 495, height: 645 }
-  // });
-
-
 
   function skipIfLoggedIn($q, $auth, $location) {
       var deferred = $q.defer();

@@ -1,3 +1,20 @@
 <h1>Logged in!</h1>
 
 <a href="/logout">Logout</a>
+
+
+<div ng-controller="MainController" class="content">
+    <h2>total count: {{count}}</h2>
+    <h3>
+      <span style="color:green"> Love: {{countLove}}</span>
+      <span style="color:red"> Hate: {{countHate}}</span>
+      <span> Love and Hate: {{countMiddle}}</span>
+      <span> Uncountable tweets: {{countPass}}</span>
+    </h3>
+    <div ng-repeat="t in twitts">
+      <p style="color:{{t.color}}">{{t.user.screen_name}}:{{t.user.text}} {{t.user.location}}</p>
+    </div>
+    <button ng-click="start()">start</button>
+    <button ng-click="stop()">stop</button>
+    <div id="map"></div>
+  </div>
