@@ -2,15 +2,17 @@ app.controller("TweetController", ['$scope', 'socket',
   function TweetController ($scope, socket){
 
     $scope.tweets = [];
-    $scope.btnStop = false;
+    // $scope.btnStop = false;
 
-    $scope.findTweets = function findTweets(){
+    $scope.findTweets = function(){
       socket.emit('tweet-io:start', true);
-      $scope.btnStop = true;
+      // $scope.btnStop = true;
 
+      debugger 
       socket.on('tweet-io:tweets', function (data){
+      console.log(data);
         $scope.tweets = $scope.tweets.concat(data);
-      });  
+      }); 
     };
   }
 ]);

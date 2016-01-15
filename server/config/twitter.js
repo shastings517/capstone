@@ -1,11 +1,13 @@
 var Twit = require('twit');
-var io = require('../app'); //THIS PROBABLY NEEDS TO BE FIXED
-// var TWEETS_BUFFER_SIZE = 3;
+var io = require('../app').io; //THIS PROBABLY NEEDS TO BE FIXED
+var TWEETS_BUFFER_SIZE = 3;
 var SOCKETIO_TWEETS_EVENT = 'tweet-io:tweets';
 var SOCKETIO_START_EVENT = 'tweet-io:start';
 var SOCKETIO_STOP_EVENT = 'tweet-io:stop';
 var openSockets = 0;
 var isFirstTwitterConnection = true;
+
+console.log('twitter');
 
 var T = new Twit({
   consumer_key: process.env.TWITTER_KEY,
@@ -98,10 +100,10 @@ stream.on('tweet', function (tweet) {
 
 var broadcastTweets = function(){
   //NOT SURE IF NEED BUFFER
-  // if(tweetsBuffer.length >= TWEETS_BUFFER_SIZE){
+  if(tweetsBuffer.length >= TWEETS_BUFFER_SIZE){
     io.sockets.emit(SOCKETIO_TWEETS_EVENT, tweetsBuffer);
 
-    // oldTweetsBuffer = tweetsBuffer;
-    // tweetsBuffer = [];
-  // }
+    oldTweetsBuffer = tweetsBuffer;
+    tweetsBuffer = [];
+  }
 };

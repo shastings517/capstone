@@ -4,7 +4,14 @@
 
 
 <div ng-controller="TweetController" class="content">
-    <h2>total count: {{count}}</h2>
+  <button type="button" ng-click="findTweets()">Get Tweets</button>
+    <span ng-repeat="tweet in tweets">
+
+    </span>
+
+</div>
+
+    <!-- <h2>total count: {{count}}</h2>
     <h3>
       <span style="color:green"> Love: {{countLove}}</span>
       <span style="color:red"> Hate: {{countHate}}</span>
@@ -16,5 +23,4 @@
     </div>
     <button ng-click="start()">start</button>
     <button ng-click="stop()">stop</button>
-    <div id="map"></div>
-  </div>
+    <div id="map"></div> -->
