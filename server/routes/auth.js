@@ -107,7 +107,6 @@ router.post('/twitter', function(req, res) {
             user.twitter = profile.id;
             user.displayName = profile.name;
             user.picture = profile.profile_image_url.replace('_normal', '');
-            console.log(user)
             user.save(function() {
               res.send({ token: createJWT(user) });
             });
