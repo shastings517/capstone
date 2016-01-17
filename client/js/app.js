@@ -1,4 +1,4 @@
-var app = angular.module("twitterApp", ['ngRoute','satellizer']);
+var app = angular.module("twitterApp", ['ngRoute','satellizer','btford.socket-io']);
 
 app.config(function($routeProvider, $locationProvider, $authProvider){
   $routeProvider

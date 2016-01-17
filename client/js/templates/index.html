@@ -4,12 +4,24 @@
 
 
 <div ng-controller="TweetController" class="content">
+  <form ng-submit="getTweets(vm.keyword)">
+    <label for="keyword">#keyword</label>
+    <input type="text" ng-model="vm.keyword" id="task">
+    <input type="submit" value="get tweets">
+  </form>
+</div>
+
+  <!-- <label for="task">Task</label>
+    <input type="text" ng-model="todo.task" id="task">
+    <input type="submit" value="Add todo">
+  <input type="text">
+  
   <button type="button" ng-click="findTweets()">Get Tweets</button>
     <span ng-repeat="tweet in tweets">
 
     </span>
 
-</div>
+</div> -->
 
     <!-- <h2>total count: {{count}}</h2>
     <h3>
