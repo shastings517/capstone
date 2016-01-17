@@ -9,6 +9,11 @@
     <input type="text" ng-model="vm.keyword" id="task">
     <input type="submit" value="get tweets">
   </form>
+
+  <div ng-repeat="t in tweets">
+    <p>{{t.user.screen_name}} {{t.text}} {{t.user.location}}</p>
+  </div>
+
 </div>
 
   <!-- <label for="task">Task</label>

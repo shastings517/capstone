@@ -1,0 +1,23 @@
+{
+  "name": "client",
+  "homepage": "https://github.com/shastings517/capstone",
+  "authors": [
+    "Samuel Hastings <shastings517@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-socket-io": "~0.7.0"
+  }
+}
