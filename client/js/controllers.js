@@ -11,6 +11,17 @@ app.controller('TweetController', ['$scope', 'socket', function($scope, socket) 
   $scope.pos1 = 0;
   $scope.pos2 = 0;
   $scope.tweets = [];
+
+  var posWords5 = [];
+  var posWords4 = [];
+  var posWords3 = [];
+  var posWords2 = [];
+  var posWords1 = [];
+  var negWords1 = [];
+  var negWords2 = [];
+  var negWords3 = [];
+  var negWords4 = [];
+  var negWords5 = [];
   
   $scope.getTweets = function(keyword){
     var tweets = $scope.tweets;

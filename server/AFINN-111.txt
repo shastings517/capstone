@@ -1574,7 +1574,7 @@ motivation	1
 mourn	-2
 mourned	-2
 mournful	-2
-mourning	-2
+mourningko	-2
 mourns	-2
 mumpish	-2
 murder	-2

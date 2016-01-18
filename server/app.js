@@ -24,8 +24,7 @@ var fs = require('fs');
 //   console.log(data);
 // });
 
-// var array = fs.readFileSync('server/AFINN-111.txt').toString().replace(/\\t-2/g,'').split("\n");
-// console.log(array);
+// console.log(JSON.stringify(array));
 // for(i in array) {
     // console.log(array[i]);
 
@@ -61,6 +60,16 @@ var T = new Twit({
   access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
+
+var array = fs.readFileSync('server/AFINN-111.txt', 'utf8').replace(/\t/g, ' ').split('\n');
+var scoreObj = {};
+
+array.forEach(function(word) {
+  var split = word.split(' ');
+  scoreObj[split[0]] = Number(split[1]); 
+});
+// console.log(scoreObj);
+
 // SOCKET.IO LOGIC
 io.on('connection', function(socket) {
   console.log('connected!!!!!!!');
@@ -73,8 +82,31 @@ io.on('connection', function(socket) {
 
     stream.on('tweet', function(tweet) {
       // console.log(keyword, tweet.id);
+      tweet.score=0;
+      console.log(tweet.text.toLowerCase());
+      
+      // var t = tweet.text.toLowerCase();
+
+      tweet.text.toLowerCase().split(' ').reduce(function(prev, cur){
+        tweet.score = prev + (scoreObj[cur] ? scoreObj[cur] : 0);
+        return tweet.score;
+      },0);
+      
       socket.emit('tweet', tweet);
+      console.log(tweet.score);
+      //split tweet into array of words
+      //helper function to calculate score
     });
+
+    // var scoreObjs = {love: 1, hate: -1};
+
+    // var tweet = "love love love love hate hate";
+
+    // tweet.split(" ").reduce(function(prev, cur) {
+
+    //   return prev + (scoreObjs[cur] ? scoreObjs[cur] : 0);
+
+    // },0);
 
     stream.on('limit', function(limitMessage) {
       console.log('Limit for User : ' + socket.id + ' on query ' + q + ' has reached!');
