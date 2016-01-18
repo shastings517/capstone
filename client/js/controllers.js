@@ -1,19 +1,63 @@
-//TWITTER LOGIC
+//TWITTER & SCORING LOGIC
 app.controller('TweetController', ['$scope', 'socket', function($scope, socket) {
 
-    $scope.tweets = [];
-    
-    $scope.getTweets = function(keyword){
-      var tweets = $scope.tweets;
-      socket.emit('keyword', keyword);
+  $scope.count = 0;
+  // $scope.countLove = 0;
+  // $scope.countHate = 0;
+  // $scope.countMiddle = 0;
+  $scope.neg1 = 0;
+  $scope.neg2 = 0;
+  $scope.neut = 0;
+  $scope.pos1 = 0;
+  $scope.pos2 = 0;
+  $scope.tweets = [];
+  
+  $scope.getTweets = function(keyword){
+    var tweets = $scope.tweets;
+    socket.emit('keyword', keyword);
 
-      socket.on('tweet', function(tweet) {
-        tweets.push(tweet);
-        $scope.keyword = '';
-      });
-    };
+    socket.on('tweet', function(tweet) {
+      tweet.score = 0;
+      tweets.push(tweet);
+      if (tweet && !tweet.limit) {
+        $scope.count++;
+      }
+      else if ((tweet.text.indexOf('love') != -1) && (tweet.text.indexOf('hate') != -1)) {
+          $scope.countMiddle++;
+          tweet.score++;
+      }
+      else if (tweet.text.indexOf('love') != -1) {
+          $scope.countLove++;
+          tweet.score++;
+          tweet.color = '#57BB7E';
+      }
+      else {
+          $scope.countHate++;
+          tweet.score--;
+          tweet.color = '#FF9B6D';
+      }
+      $scope.vm.keyword = '';
+    });
+  };
+
+  $scope.stopStream = function(){
+    socket.disconnect();
+  };
 
 }]);
+
+//SINGLE PAGE CONTROLS 
+app.controller("tabController", function($scope){
+  $scope.tab = 1;
+
+  $scope.setTab = function(newTab){
+    $scope.tab = newTab;
+  };
+
+  $scope.isSet = function(tabNum){
+    return $scope.tab === tabNum;
+  };
+});
 
 
 //AUTHENTICATION LOGIC

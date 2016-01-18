@@ -9,6 +9,35 @@ var server = require('http').Server(app);
 var path = require("path");
 var io = require('socket.io')(server);
 var Twit = require('twit');
+var fs = require('fs');
+
+// fs.readFile('server/AFINN-111.txt','utf8',(err, data) => {
+//   if (err) throw err;
+//   // data = data.split();
+//       // .reduce(function(m,i){
+//         // var s = i.split(':');
+//         // m[s.shift()] = s.join(':');
+//         // return m;
+  
+
+
+//   console.log(data);
+// });
+
+// var array = fs.readFileSync('server/AFINN-111.txt').toString().replace(/\\t-2/g,'').split("\n");
+// console.log(array);
+// for(i in array) {
+    // console.log(array[i]);
+
+// }
+
+// data2 = data2.split(/\r?\n/).reduce(function(m,i){
+//     var s = i.split(':');
+//     m[s.shift()] = s.join(':');
+//     return m;
+// }, {});
+
+// JSON.stringify(data2);
 
 app.use(morgan("tiny"));
 app.use(bodyParser.json());

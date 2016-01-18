@@ -4,5 +4,7 @@ app.factory('socket', function(socketFactory) {
   });
 });
 
+
+
 //GET USER INFO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // $scope.user = $auth.getPayload().user;

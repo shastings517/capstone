@@ -1,43 +1,135 @@
-<h1>Logged in!</h1>
+<!-- NAVBAR -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">TweetVibe</a>
+    </div>
 
-<a href="/logout">Logout</a>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li> -->
+      </ul>
+      <!-- <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form> -->
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/auth/twitter" class='btn btn-default'>Twitter Login</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <!-- <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li> -->
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
 
-<div ng-controller="TweetController" class="content">
-  <form ng-submit="getTweets(vm.keyword)">
+
+
+
+
+
+<div ng-controller="TweetController" class="container-fluid">
+
+  <!-- <form ng-submit="getTweets(vm.keyword)">
     <label for="keyword">#keyword</label>
     <input type="text" ng-model="vm.keyword" id="task">
     <input type="submit" value="get tweets">
-  </form>
+  </form> -->
 
-  <div ng-repeat="t in tweets">
-    <p>{{t.user.screen_name}} {{t.text}} {{t.user.location}}</p>
+  <!-- <div ng-repeat="t in tweets">
+    <p>{{t.user.screen_name}} {{t.text}} {{t.user.location}} {{t.score}}</p>
+  </div> -->
+
+
+
+
+
+  <!-- <a href="/auth/twitter" class="btn btn-default">Log In to Twitter.</a> -->
+  <!-- <div ng-controller="TestApp" class="hugeContainer"> -->
+  <div class="row">
+    
+    <div class="col-xs-5ths text-center scale">Negative</div>
+    <div class="col-xs-5ths text-center scale"><span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span></div>
+    <div class="col-xs-5ths text-center scale">Neutral</div>
+    <div class="col-xs-5ths text-center scale"><span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span></div>
+    <div class="col-xs-5ths text-center scale">Positive</div>
   </div>
 
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-xs-5ths text-center" id="neg1">{{countHate}}</div>
+    <div class="col-xs-5ths text-center" id="neg2"></div>
+    <div class="col-xs-5ths text-center" id="neut">{{countMiddle}}</div>
+    <div class="col-xs-5ths text-center" id="pos1"></div>
+    <div class="col-xs-5ths text-center" id="pos2">{{countLove}}</div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-8 graphContainer">
+      <div class="col-xs-4">
+      <span>1</span>
+      </div>
+      <div class="col-xs-4">
+      <span>1</span>
+      </div>
+      <div class="col-xs-4">
+      <span>1</span>
+      </div>
+      
+      
+    </div>
+    <div class="col-xs-4 tweetContainer">
+      <form ng-submit="getTweets(vm.keyword)">
+        <label for="keyword">#keyword</label>
+        <input type="text" ng-model="vm.keyword" id="task">
+        <input type="submit" class="btn btn-default" value="get tweets">
+      </form>
+      <div class="btn btn-default" ng-click="stopStream()">stop stream</div>
+      <!-- <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span> -->
+      <h3>tweetCount: {{count}}</h3>
+      <div ng-repeat="t in tweets track by $index">
+        <p>{{t.user.screen_name}} {{t.text}} {{t.user.location}} {{t.score}}</p>
+      </div>
+    </div>
+  </div>
+
+    
+  </div>
 </div>
 
-  <!-- <label for="task">Task</label>
-    <input type="text" ng-model="todo.task" id="task">
-    <input type="submit" value="Add todo">
-  <input type="text">
+
   
-  <button type="button" ng-click="findTweets()">Get Tweets</button>
-    <span ng-repeat="tweet in tweets">
-
-    </span>
-
-</div> -->
-
-    <!-- <h2>total count: {{count}}</h2>
-    <h3>
-      <span style="color:green"> Love: {{countLove}}</span>
-      <span style="color:red"> Hate: {{countHate}}</span>
-      <span> Love and Hate: {{countMiddle}}</span>
-      <span> Uncountable tweets: {{countPass}}</span>
-    </h3>
-    <div ng-repeat="t in twitts">
-      <p style="color:{{t.color}}">{{t.user.screen_name}}:{{t.user.text}} {{t.user.location}}</p>
-    </div>
-    <button ng-click="start()">start</button>
-    <button ng-click="stop()">stop</button>
-    <div id="map"></div> -->
