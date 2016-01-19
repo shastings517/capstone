@@ -61,7 +61,7 @@ var T = new Twit({
 });
 
 
-var array = fs.readFileSync('server/AFINN-111.txt', 'utf8').replace(/\t/g, ' ').split('\n');
+var array = fs.readFileSync('server/lib/AFINN-111.txt', 'utf8').replace(/\t/g, ' ').split('\n');
 var scoreObj = {};
 
 array.forEach(function(word) {
@@ -123,6 +123,7 @@ io.on('connection', function(socket) {
 
     stream.on('disconnect', function(disconnectMessage) {
       console.log('disconnect', disconnectMessage);
+      stream.stop();
     });
 
   });

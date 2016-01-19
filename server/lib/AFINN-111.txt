@@ -1969,6 +1969,7 @@ scared	-2
 scary	-2
 sceptical	-2
 scold	-2
+scolds  -2
 scoop	3
 scorn	-2
 scornful	-2

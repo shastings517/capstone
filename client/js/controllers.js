@@ -5,54 +5,42 @@ app.controller('TweetController', ['$scope', 'socket', function($scope, socket) 
   // $scope.countLove = 0;
   // $scope.countHate = 0;
   // $scope.countMiddle = 0;
-  $scope.neg1 = 0;
-  $scope.neg2 = 0;
-  $scope.neut = 0;
-  $scope.pos1 = 0;
-  $scope.pos2 = 0;
+  
   $scope.tweets = [];
 
-  var posWords5 = [];
-  var posWords4 = [];
-  var posWords3 = [];
-  var posWords2 = [];
-  var posWords1 = [];
-  var negWords1 = [];
-  var negWords2 = [];
-  var negWords3 = [];
-  var negWords4 = [];
-  var negWords5 = [];
   
   $scope.getTweets = function(keyword){
     var tweets = $scope.tweets;
     socket.emit('keyword', keyword);
 
     socket.on('tweet', function(tweet) {
-      tweet.score = 0;
+      // tweet.score = 0;
       tweets.push(tweet);
       if (tweet && !tweet.limit) {
         $scope.count++;
       }
-      else if ((tweet.text.indexOf('love') != -1) && (tweet.text.indexOf('hate') != -1)) {
-          $scope.countMiddle++;
-          tweet.score++;
-      }
-      else if (tweet.text.indexOf('love') != -1) {
-          $scope.countLove++;
-          tweet.score++;
-          tweet.color = '#57BB7E';
-      }
-      else {
-          $scope.countHate++;
-          tweet.score--;
-          tweet.color = '#FF9B6D';
-      }
+      // else if ((tweet.text.indexOf('love') != -1) && (tweet.text.indexOf('hate') != -1)) {
+      //     $scope.countMiddle++;
+      //     tweet.score++;
+      // }
+      // else if (tweet.text.indexOf('love') != -1) {
+      //     $scope.countLove++;
+      //     tweet.score++;
+      //     tweet.color = '#57BB7E';
+      // }
+      // else {
+      //     $scope.countHate++;
+      //     tweet.score--;
+      //     tweet.color = '#FF9B6D';
+      // }
       $scope.vm.keyword = '';
     });
   };
 
+  //NEED TO FIX STREAM/SOCKET STOP LOGIC
   $scope.stopStream = function(){
     socket.disconnect();
+    socket.emit('disconnect');
   };
 
 }]);
