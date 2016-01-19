@@ -7,6 +7,8 @@ app.controller('TweetController', ['$scope', 'socket', function($scope, socket) 
   // $scope.countMiddle = 0;
   
   $scope.tweets = [];
+  // $scope.clock = 0;
+  // $scope.interval = 0;
 
   
   $scope.getTweets = function(keyword){
@@ -19,6 +21,7 @@ app.controller('TweetController', ['$scope', 'socket', function($scope, socket) 
       if (tweet && !tweet.limit) {
         $scope.count++;
       }
+      
       // else if ((tweet.text.indexOf('love') != -1) && (tweet.text.indexOf('hate') != -1)) {
       //     $scope.countMiddle++;
       //     tweet.score++;
@@ -42,6 +45,37 @@ app.controller('TweetController', ['$scope', 'socket', function($scope, socket) 
     socket.disconnect();
     socket.emit('disconnect');
   };
+
+  //TIMER
+  
+
+  // $scope.startTimer = function() {
+  //   if (!interval) {
+  //     offset   = Date.now();
+  //     interval = setInterval(update);
+  //   }
+  // };
+
+  // $scope.stopTimer = function() {
+  //   if (interval) {
+  //     clearInterval(interval);
+  //     interval = null;
+  //   }
+  // };
+
+  // function update() {
+  //   clock += delta();  
+  // }
+
+  // function delta() {
+  //   var now = Date.now(),
+  //       d   = now - offset;
+    
+  //   offset = now;
+  //   return d;
+  // }
+  
+  
 
 }]);
 

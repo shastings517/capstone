@@ -113,14 +113,15 @@
       
     </div>
     <div class="col-xs-4 tweetContainer">
-      <form ng-submit="getTweets(vm.keyword)">
+      <form ng-submit="getTweets(vm.keyword); startTimer()">
         <label for="keyword">#keyword</label>
         <input type="text" ng-model="vm.keyword" id="task">
         <input type="submit" class="btn btn-default" value="get tweets">
       </form>
-      <div class="btn btn-default" ng-click="stopStream()">stop stream</div>
+      <div class="btn btn-default" ng-click="stopStream(); stopTimer()">stop stream</div>
       <!-- <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span> -->
       <h3>tweetCount: {{count}}</h3>
+      <h3>time Elapsed: {{clock}}</h3>
       <div ng-repeat="t in tweets track by $index">
         <p>{{t.user.screen_name}} {{t.text}} {{t.user.location}} {{t.score}}</p>
       </div>

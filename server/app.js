@@ -62,6 +62,10 @@ var T = new Twit({
 
 
 var array = fs.readFileSync('server/lib/AFINN-111.txt', 'utf8').replace(/\t/g, ' ').split('\n');
+var posArray = fs.readFileSync('server/lib/POS.txt', 'utf8').split('\n');
+var negArray = fs.readFileSync('server/lib/NEG.txt', 'utf8').split('\n');
+console.log(posArray);
+
 var scoreObj = {};
 
 array.forEach(function(word) {
@@ -83,14 +87,19 @@ io.on('connection', function(socket) {
     stream.on('tweet', function(tweet) {
       // console.log(keyword, tweet.id);
       tweet.score=0;
-      console.log(tweet.text.toLowerCase());
+      // console.log(tweet.text.toLowerCase());
       
       // var t = tweet.text.toLowerCase();
 
       tweet.text.toLowerCase().split(' ').reduce(function(prev, cur){
         tweet.score = prev + (scoreObj[cur] ? scoreObj[cur] : 0);
+
         return tweet.score;
       },0);
+
+      // tweet.text.toLowerCase().split(' ').forEach(function(val, i, arr){
+        
+      // });
       
       socket.emit('tweet', tweet);
       console.log(tweet.score);
