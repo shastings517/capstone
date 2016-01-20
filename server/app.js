@@ -64,7 +64,7 @@ var T = new Twit({
 var array = fs.readFileSync('server/lib/AFINN-111.txt', 'utf8').replace(/\t/g, ' ').split('\n');
 var posArray = fs.readFileSync('server/lib/POS.txt', 'utf8').split('\n');
 var negArray = fs.readFileSync('server/lib/NEG.txt', 'utf8').split('\n');
-console.log(posArray);
+// console.log(posArray);
 
 var scoreObj = {};
 
@@ -86,7 +86,8 @@ io.on('connection', function(socket) {
 
     stream.on('tweet', function(tweet) {
       // console.log(keyword, tweet.id);
-      tweet.score=0;
+      tweet.score = 0;
+      tweet.time = Date.now();
       // console.log(tweet.text.toLowerCase());
       
       // var t = tweet.text.toLowerCase();
@@ -98,11 +99,11 @@ io.on('connection', function(socket) {
       },0);
 
       // tweet.text.toLowerCase().split(' ').forEach(function(val, i, arr){
-        
+
       // });
       
       socket.emit('tweet', tweet);
-      console.log(tweet.score);
+      console.log(tweet.score, tweet.time, tweet.created_at);
       //split tweet into array of words
       //helper function to calculate score
     });

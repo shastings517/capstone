@@ -38,6 +38,21 @@
   /*margin-left: 1px;*/
 }
 
+
+svg {
+  font: 10px sans-serif;
+}
+.line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
 /*5THS COLUMNS*/
 .col-xs-5ths,
 .col-sm-5ths,
