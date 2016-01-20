@@ -1,32 +1,32 @@
 //TWITTER & SCORING LOGIC
-app.controller('TweetController', ['$scope', 'socket', function($scope, socket) {
+app.controller('TweetController', ['$scope', '$interval', 'socket', function($scope, $interval, socket) {
 
   $scope.count = 0;
-  
-  // $scope.n3 = [];
-  // $scope.n2 = [];
-  // $scope.n1 = [];
-  // $scope.neut = [];
-  // $scope.p3 = [];
-  // $scope.p2 = [];
-  // $scope.p1 = [];
   
   $scope.posTweets = 0;
   $scope.negTweets = 0;
   $scope.neutTweets = 0;
   
   $scope.tweets = [];
+  $scope.graphData = [];
   //make graph data array of objects on back end with timestamp?
   // $scope.graphData = [
   //     {time: 1:00pm ,score: 54},
   //   ];
   // }]);
 
+  // $interval(function() {
+  //   var hour = $scope.graphData.length + 1;
+  //   var sales = Math.round(Math.random() * 100);
+
+  //   $scope.graphData.push({hour: hour, sales: sales});
+  // }, 1000, 10);
 
 
   $scope.getTweets = function(keyword){
-    
+
     var tweets = $scope.tweets;
+    var graphData = $scope.graphData;
     var posTweets = $scope.posTweets;
 
     // console.log(posTweetsL);
@@ -38,8 +38,19 @@ app.controller('TweetController', ['$scope', 'socket', function($scope, socket) 
     socket.emit('keyword', keyword);
 
     socket.on('tweet', function(tweet) {
-      // tweet.score = 0;
+      
+      // var datum = new Object();
+      function datum(time,score){
+        this.time = time;
+        this.score = score;
+      }
+      
       tweets.push(tweet);
+
+      graphData.push(new datum(tweet.time, tweet.score));
+      
+
+      console.log(graphData);
       if (tweet && !tweet.limit) {
         $scope.count++;
       }
