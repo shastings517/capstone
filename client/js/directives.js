@@ -133,6 +133,15 @@ app.directive("mapChart", function($parse, $window) {
         svg.append("path")
               .datum(states)
               .attr("d", path);
+
+        svg.selectAll("state")
+              .data(topojson.feature(us, us.objects.state).features)
+              .enter().append("path")
+              .attr("class", function(d) { return "state" + d.id; })
+              .attr("d", path);
+
+
+
       });
 
       // d3.json("/js/us-states-simplified.json", function(error, us) {
