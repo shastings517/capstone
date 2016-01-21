@@ -54,16 +54,18 @@
 
 .state-boundary {
   fill: none;
-  stroke: #777;
+  stroke: black;
   /*stroke-dasharray: 2,2;
   stroke-linejoin: round;*/
 }
 
 .us-boundary{
   fill: none;
-  stroke: red;
+  stroke: black;
 }
-
+/*.all-states{
+  fill:none;
+}*/
 
 h1{
   font-family: sans-serif;
