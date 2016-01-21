@@ -39,17 +39,29 @@
 }
 
 /*MAP*/
-.land {
+/*.land {
   fill: #222;
 }
 
 .state-boundary {
   fill: none;
   stroke: #fff;
-}
+}*/
 
 .state23{
   fill: red;
+}
+
+.state-boundary {
+  fill: none;
+  stroke: #777;
+  /*stroke-dasharray: 2,2;
+  stroke-linejoin: round;*/
+}
+
+.us-boundary{
+  fill: none;
+  stroke: red;
 }
 
 
@@ -64,7 +76,7 @@ h1{
 }
 
 /*TOPOJSON*/
-.states {
+/*.states {
         stroke: #000;
         fill-opacity: .7;
     }
@@ -73,7 +85,7 @@ h1{
         fill: steelblue;
         fill-opacity: .8;
         stroke: #fff;
-    }
+    }*/
 
 
 

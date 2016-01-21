@@ -130,15 +130,29 @@ app.directive("mapChart", function($parse, $window) {
         var path = d3.geo.path()
                      .projection(projection);
 
+        //draw full map
         svg.append("path")
               .datum(states)
               .attr("d", path);
 
+        //assign every state an id
         svg.selectAll("state")
               .data(topojson.feature(us, us.objects.state).features)
               .enter().append("path")
               .attr("class", function(d) { return "state" + d.id; })
               .attr("d", path);
+
+        //draw inner state borders
+        svg.append("path")
+            .datum(topojson.mesh(us, us.objects.state, function(a, b) { return a !== b; }))
+            .attr("d", path)
+            .attr("class", "state-boundary");
+
+        //draw outer border
+        svg.append("path")
+            .datum(topojson.mesh(us, us.objects.state, function(a, b) { return a === b; }))
+            .attr("d", path)
+            .attr("class", "us-boundary");
 
 
 
