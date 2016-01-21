@@ -21,7 +21,7 @@ app.directive("linearChart", function($parse, $window) {
 
       function setChartParameters(){
         xScale = d3.scale.linear()
-                   .domain([graphData[0].time, graphData[graphData.length-1].time + 100000])
+                   .domain([graphData[0].time, graphData[0].time + 50000])
                    .range([padding, rawSvg.clientWidth - padding]);
 
         yScale = d3.scale.linear()
@@ -85,6 +85,59 @@ app.directive("linearChart", function($parse, $window) {
       }
 
       drawLineChart();
+    }
+  };
+});
+
+app.directive("mapChart", function($parse, $window) {
+  return{
+    restrict: "EA",
+    template: "<svg></svg>",
+    link: function(scope, elem, attrs){
+
+      var w = 850;
+      var h = 400;
+
+      var exp = $parse(attrs.mapData);
+      var mapData = exp(scope);
+      // var xScale, yScale, xAxisGen, yAxisGen, lineFun;
+          
+      var d3 = $window.d3;
+      var rawSvg = elem.find("svg")[0];
+
+      var projection = d3.geo.albersUsa()
+          .scale(1000)
+          .translate([w / 2, h / 2]);
+
+      var path = d3.geo.path()
+          .projection(projection);
+
+      var svg = d3.select(rawSvg)
+      // var svg = d3.select("body").append("svg")
+          .attr("width", w)
+          .attr("height", h);
+
+      d3.json("/js/us-states-simplified.json", function(error, us) {
+        if (error) throw error;
+
+        svg.insert("path", ".graticule")
+            .datum(topojson.feature(us, us.objects.land))
+            .attr("class", "land")
+            .attr("d", path);
+
+        // svg.insert("path", ".graticule")
+        //     .datum(topojson.mesh(us, us.objects.counties, function(a, b) { return a !== b && !(a.id / 1000 ^ b.id / 1000); }))
+        //     .attr("class", "county-boundary")
+        //     .attr("d", path);
+
+        svg.insert("path", ".graticule")
+            .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+            .attr("class", "state-boundary")
+            .attr("d", path);
+      });
+
+      d3.select(self.frameElement).style("height", h + "px");
+      
     }
   };
 });

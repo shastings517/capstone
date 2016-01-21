@@ -38,22 +38,7 @@
   /*margin-left: 1px;*/
 }
 
-
-/*svg {
-  font: 10px sans-serif;
-}
-.line {
-  fill: none;
-  stroke: #000;
-  stroke-width: 1.5px;
-}
-.axis path, .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}*/
-
-.axis path,
+/*.axis path,
 .axis line{
   fill: none;
   stroke:black;
@@ -63,7 +48,33 @@
 .axis text{
   font-family: sans-serif;
   font-size: 10px;
+}*/
+/*.states {
+        stroke: #000;
+        fill-opacity: .7;
+    }
+
+    .symbol {
+        fill: steelblue;
+        fill-opacity: .8;
+        stroke: #fff;
+    }*/
+.land {
+  fill: #222;
 }
+
+.county-boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+
+.state-boundary {
+  fill: none;
+  stroke: #fff;
+}
+
+
 
 h1{
   font-family: sans-serif;
@@ -74,6 +85,18 @@ h1{
 {
   stroke-dasharray: 1, 2;
 }
+
+/*TOPOJSON*/
+.states {
+        stroke: #000;
+        fill-opacity: .7;
+    }
+
+    .symbol {
+        fill: steelblue;
+        fill-opacity: .8;
+        stroke: #fff;
+    }
 
 
 
