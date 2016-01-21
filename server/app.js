@@ -79,9 +79,9 @@ sentDictionary.forEach(function(word) {
   // console.log(scoreObj) 
 });
 
-statesInfo.forEach(function(state){
+// statesInfo.forEach(function(state){
 
-})
+// })
 // array.forEach(function(word) {
 //   var 
 // })
@@ -137,6 +137,7 @@ io.on('connection', function(socket) {
     // },0);
 
     // var mapData = [{place:null, score:0}];
+    // 
 
     stream.on('limit', function(limitMessage) {
       console.log('Limit for User : ' + socket.id + ' on query ' + q + ' has reached!');

@@ -99,8 +99,8 @@ app.directive("mapChart", function($parse, $window) {
       var h = 400;
 
       var exp = $parse(attrs.mapData);
-      var mapData = exp(scope);
-      console.log(mapData);
+      mapData = exp(scope);
+      // console.log(mapData);
           
       var d3 = $window.d3;
       var rawSvg = elem.find("svg")[0];
@@ -108,16 +108,37 @@ app.directive("mapChart", function($parse, $window) {
           .attr("width", w)
           .attr("height", h);
 
+
       scope.$watchCollection(exp, function(newVal, oldVal) {
+        // states.features
+        states = states || "";
+        console.log(mapData);
         mapData = newVal;
+        if(states){
+          places = states.features.filter(function(state){
+            return mapData.filter(function(el){ 
+             if(el.place){
+              return el.place.indexOf(state.properties.NAME10.toLowerCase()) !== -1 || el.place.indexOf(state.properties.STUSPS10.toLowerCase()) !== -1;
+             }
+          });
+        
+
+          // if(el.place) {
+          //   return el.place.indexOf(states.properties.NAME10.toLowerCase()) !== -1 || el.place.indexOf(d.properties.STUSPS10.toLowerCase()) !== -1;
+          // }
+          // return _.contains(el.place, d.properties.STUSPS10.toLowerCase()) || _.contains(el.place,d.properties.NAME10.toLowerCase());
+          // return "red";
+        });
+      }
         // redrawLineChart();
       });
 
       d3.json("/js/state-names.json", function(error, us) {
+
         if (error) return console.error(error);
-        console.log("first", us.objects.state.geometries[1].properties);
+        // console.log("first", us.objects.state.geometries[1].properties);
         
-        var states = topojson.feature(us, us.objects.state);
+        states = topojson.feature(us, us.objects.state);
         
         var stateObjArr = us.objects.state.geometries;
         var stateNameArr = [];
@@ -128,7 +149,7 @@ app.directive("mapChart", function($parse, $window) {
 
         // for(var i=0; i<d3.values(us.objects.state.geometries[1].properties);
         
-        console.log("STATE", stateNameArr);
+        // console.log("STATE", stateNameArr);
         var projection = d3.geo.albersUsa()
                            .scale(950)
                            .translate([w / 2, h / 2]);
@@ -136,20 +157,38 @@ app.directive("mapChart", function($parse, $window) {
         var path = d3.geo.path()
                      .projection(projection);
 
+        // function stateCheck(){
+
+        // }
+
         //draw full map
         svg.append("path")
               .datum(states)
               .attr("d", path);
               
 
-        //assign every state an id
+        //assign every state an id and color
         svg.selectAll("state")
               .data(topojson.feature(us, us.objects.state).features)
               .enter().append("path")
-              .attr("class", function(d) { return "state" + d.id; })
+              .attr("class", function(d) { 
+                console.log('features', d);
+                return "state" + d.id;  })
               .attr("d", path)
-              .style("fill", "white");
+              .style("fill", function(d){
+                console.log(d.properties.STUSPS10, d.properties.NAME10);
+                console.log(mapData);
+                
+                // debugger
+              });
 
+
+         // function isBiggerThan10(element, index, array) {
+         //   return element > 10;
+         // }
+         // [2, 5, 8, 1, 4].some(isBiggerThan10);  // false
+         // [12, 5, 8, 1, 4].some(isBiggerThan10); // true
+              
         //draw inner state borders
         svg.append("path")
             .datum(topojson.mesh(us, us.objects.state, function(a, b) { return a !== b; }))
@@ -164,13 +203,16 @@ app.directive("mapChart", function($parse, $window) {
 
             console.log("THIS", us.objects.state.geometries[1].properties);
 
+          // var mapData = [{place:null, score:0}];
+          // var stateNameArray = [{NAME10: "Wyoming", STUSPS10: "WY"}]
 
-        svg.selectAll("state")
-              .data(topojson.feature(us, us.objects.state).features)
-              .style("fill", function(d, i){
-                console.log(d);
-                d.properties
-              });
+
+        // svg.selectAll("state")
+        //       .data(topojson.feature(us, us.objects.state).features)
+        //       .style("fill", function(d, i){
+        //         console.log(d);
+        //         // d.properties
+        //       });
 
 
               // var scoreObjs = {love: 1, hate: -1};
@@ -183,11 +225,10 @@ app.directive("mapChart", function($parse, $window) {
 
               // },0);
 
-              // var mapData = [{place:null, score:0}];
-              // var stateNameArray = [{NAME10: "Wyoming", STUSPS10: "WY"}]
-              d.filter(function(el){
-                el.NAME10 === mapData.place ? 
-              })
+              
+              // d.filter(function(el){
+              //   el.NAME10 === mapData.place ? 
+              // })
 
               // .attr("class", function(d) { return "state" + d.id; })
               // .attr("d", path)
@@ -247,6 +288,7 @@ app.directive("mapChart", function($parse, $window) {
         
 
       });
-    }
-  };
+    
+  }
+};
 });
