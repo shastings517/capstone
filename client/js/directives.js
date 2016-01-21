@@ -100,6 +100,7 @@ app.directive("mapChart", function($parse, $window) {
 
       var exp = $parse(attrs.mapData);
       var mapData = exp(scope);
+      console.log(mapData);
           
       var d3 = $window.d3;
       var rawSvg = elem.find("svg")[0];
@@ -107,12 +108,27 @@ app.directive("mapChart", function($parse, $window) {
           .attr("width", w)
           .attr("height", h);
 
+      scope.$watchCollection(exp, function(newVal, oldVal) {
+        mapData = newVal;
+        // redrawLineChart();
+      });
+
       d3.json("/js/state-names.json", function(error, us) {
         if (error) return console.error(error);
-        // console.log(us);
+        console.log("first", us.objects.state.geometries[1].properties);
         
         var states = topojson.feature(us, us.objects.state);
         
+        var stateObjArr = us.objects.state.geometries;
+        var stateNameArr = [];
+
+        stateObjArr.forEach(function(el){
+          stateNameArr.push(el.properties);
+        });
+
+        // for(var i=0; i<d3.values(us.objects.state.geometries[1].properties);
+        
+        console.log("STATE", stateNameArr);
         var projection = d3.geo.albersUsa()
                            .scale(950)
                            .translate([w / 2, h / 2]);
@@ -127,7 +143,7 @@ app.directive("mapChart", function($parse, $window) {
               
 
         //assign every state an id
-        svg.selectAll(".state")
+        svg.selectAll("state")
               .data(topojson.feature(us, us.objects.state).features)
               .enter().append("path")
               .attr("class", function(d) { return "state" + d.id; })
@@ -146,11 +162,89 @@ app.directive("mapChart", function($parse, $window) {
             .attr("d", path)
             .attr("class", "us-boundary");
 
-        //import sentiment date and style state color     
-        svg.append("path")
-            .datum(topojson.feature(uk, uk.objects.places))
-            .attr("d", path)
-            .attr("class", "place");
+            console.log("THIS", us.objects.state.geometries[1].properties);
+
+
+        svg.selectAll("state")
+              .data(topojson.feature(us, us.objects.state).features)
+              .style("fill", function(d, i){
+                console.log(d);
+                d.properties
+              });
+
+
+              // var scoreObjs = {love: 1, hate: -1};
+
+              // var tweet = "love love love love hate hate";
+
+              // tweet.split(" ").reduce(function(prev, cur) {
+
+              //   return prev + (scoreObjs[cur] ? scoreObjs[cur] : 0);
+
+              // },0);
+
+              // var mapData = [{place:null, score:0}];
+              // var stateNameArray = [{NAME10: "Wyoming", STUSPS10: "WY"}]
+              d.filter(function(el){
+                el.NAME10 === mapData.place ? 
+              })
+
+              // .attr("class", function(d) { return "state" + d.id; })
+              // .attr("d", path)
+              // .style("fill", "white");
+        //import sentiment date and style state color wrap in function    
+        // svg.append("path")
+        //     // debugger
+        //     .datum(topojson.feature(us, us.objects.state))
+        //     .attr("d", path)
+        //     .attr("class", "place");
+
+        // if(mapData === )
+
+        //FUNCTION FOR COLORING MAP GOES HERE
+        // function setMapParameters() {
+        //   lineFun = d3.svg.line()
+        //               .x(function (d) {
+        //                 return xScale(d.time);
+        //               })
+        //               .y(function (d) {
+        //                 return yScale(d.score);
+        //               })
+        //               .interpolate("basis");
+          
+        // }
+
+        // //FUNCTION TO DRAW MAP
+        // function drawLineChart() {
+
+        //   setChartParameters();
+
+        //    svg.append("svg:path")
+        //       .attr({
+        //         d: lineFun(graphData),
+        //         "stroke": "blue",
+        //         "stroke-width": 2,
+        //         "fill": "none",
+        //         "class": pathClass
+        //    });
+        // }
+
+
+        // //FUNCTION TO REDRAW MAP
+        // function redrawLineChart() {
+
+        //   setChartParameters();
+        //   svg.selectAll("g.y.axis").call(yAxisGen);
+        //   svg.selectAll("g.x.axis").call(xAxisGen);
+
+        //   svg.selectAll("." + pathClass)
+        //      .attr({
+        //        d: lineFun(graphData)
+        //      });
+        // }
+
+
+        
 
       });
     }

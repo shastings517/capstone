@@ -61,17 +61,30 @@ var T = new Twit({
 });
 
 
-var array = fs.readFileSync('server/lib/AFINN-111.txt', 'utf8').replace(/\t/g, ' ').split('\n');
+var sentDictionary = fs.readFileSync('server/lib/AFINN-111.txt', 'utf8').replace(/\t/g, ' ').split('\n');
 var posArray = fs.readFileSync('server/lib/POS.txt', 'utf8').split('\n');
 var negArray = fs.readFileSync('server/lib/NEG.txt', 'utf8').split('\n');
-// console.log(posArray);
+
+var statesInfo = fs.readFileSync('server/lib/MAP.txt', 'utf8').replace(/\s+/g, ' ').split(' ');
+// fs.appendFile('server/lib/citylist.txt', (cities + "\n"), "UTF-8");
+console.log(statesInfo);
+
 
 var scoreObj = {};
 
-array.forEach(function(word) {
+sentDictionary.forEach(function(word) {
   var split = word.split(' ');
   scoreObj[split[0]] = Number(split[1]); 
+  // console.log(scoreObj[split[0]] = Number(split[1]));
+  // console.log(scoreObj) 
 });
+
+statesInfo.forEach(function(state){
+
+})
+// array.forEach(function(word) {
+//   var 
+// })
 // console.log(scoreObj);
 
 // SOCKET.IO LOGIC
@@ -87,23 +100,28 @@ io.on('connection', function(socket) {
     stream.on('tweet', function(tweet) {
       // console.log(keyword, tweet.id);
       tweet.score = 0;
+      tweet.place = '';
       tweet.time = Date.now();
-      // console.log(tweet.text.toLowerCase());
+      // console.log(tweet.location);
       
       // var t = tweet.text.toLowerCase();
 
-      tweet.text.toLowerCase().split(' ').reduce(function(prev, cur){
-        tweet.score = prev + (scoreObj[cur] ? scoreObj[cur] : 0);
-
+      tweet.text.toLowerCase().split(' ').reduce(function(pv, cr){
+        tweet.score = pv + (scoreObj[cr] ? scoreObj[cr] : 0);
         return tweet.score;
       },0);
 
+
+
+      tweet.place = tweet.user.location === null? "" : tweet.user.location.toLowerCase().split(' ');
+      console.log(tweet.place);
       // tweet.text.toLowerCase().split(' ').forEach(function(val, i, arr){
 
       // });
       
       socket.emit('tweet', tweet);
-      console.log(tweet.score, tweet.time, tweet.created_at);
+      // fs.appendFile('server/lib/test.txt', (tweet.user.location + "\n"), "UTF-8");
+      console.log(tweet.score, tweet.time, tweet.user.location);
       //split tweet into array of words
       //helper function to calculate score
     });
@@ -117,6 +135,8 @@ io.on('connection', function(socket) {
     //   return prev + (scoreObjs[cur] ? scoreObjs[cur] : 0);
 
     // },0);
+
+    // var mapData = [{place:null, score:0}];
 
     stream.on('limit', function(limitMessage) {
       console.log('Limit for User : ' + socket.id + ' on query ' + q + ' has reached!');
