@@ -105,44 +105,62 @@ app.directive("mapChart", function($parse, $window) {
       var d3 = $window.d3;
       var rawSvg = elem.find("svg")[0];
 
-      var projection = d3.geo.albersUsa()
-          .scale(1000)
-          .translate([w / 2, h / 2]);
+      // var projection = d3.geo.albersUsa()
+      //     .scale(1000)
+      //     .translate([w / 2, h / 2]);
 
-      var path = d3.geo.path()
-          .projection(projection);
+      // var path = d3.geo.path()
+      //     .projection(projection);
 
       var svg = d3.select(rawSvg)
       // var svg = d3.select("body").append("svg")
           .attr("width", w)
           .attr("height", h);
 
-      d3.json("/js/us-states-simplified.json", function(error, us) {
-        if (error) throw error;
-
-        var state = us.objects.states.geometries[0];
+      d3.json("/js/state-names.json", function(error, us) {
+        if (error) return console.error(error);
+        console.log(us);
         
-        svg.insert("path", ".graticule")
-            .datum(topojson.feature(us, us.objects.land))
-            .attr("class", "land")
-            .attr("d", path)
-            .style("fill", function(d,i){
+        var states = topojson.feature(us, us.objects.state);
+        
+        var projection = d3.geo.albersUsa()
+                           .scale(950)
+                           .translate([w / 2, h / 2]);
+        
+        var path = d3.geo.path()
+                     .projection(projection);
 
-            });
-            // console.log(us.objects.states)
+        svg.append("path")
+              .datum(states)
+              .attr("d", path);
+      });
+
+      // d3.json("/js/us-states-simplified.json", function(error, us) {
+      //   if (error) throw error;
+
+      //   var state = us.objects.states.geometries[0];
+        
+      //   svg.insert("path", ".graticule")
+      //       .datum(topojson.feature(us, us.objects.land))
+      //       .attr("class", "land")
+      //       .attr("d", path)
+      //       .style("fill", function(d,i){
+
+      //       });
+      //       // console.log(us.objects.states)
 
 
             
 
-        // svg.insert("path", ".graticule")
-        //     .datum(topojson.mesh(us, us.objects.counties, function(a, b) { return a !== b && !(a.id / 1000 ^ b.id / 1000); }))
-        //     .attr("class", "county-boundary")
-        //     .attr("d", path);
+      //   // svg.insert("path", ".graticule")
+      //   //     .datum(topojson.mesh(us, us.objects.counties, function(a, b) { return a !== b && !(a.id / 1000 ^ b.id / 1000); }))
+      //   //     .attr("class", "county-boundary")
+      //   //     .attr("d", path);
 
-        svg.insert("path", ".graticule")
-            .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-            .attr("class", "state-boundary")
-            .attr("d", path);
+      //   svg.insert("path", ".graticule")
+      //       .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+      //       .attr("class", "state-boundary")
+      //       .attr("d", path);
 
         // svg.select("land", function(d,i){
 
@@ -155,9 +173,9 @@ app.directive("mapChart", function($parse, $window) {
             // console.log(us.objects.states.geometries[0].id)
 
 
-      });
+      // });
 
-      d3.select(self.frameElement).style("height", h + "px");
+      // d3.select(self.frameElement).style("height", h + "px");
       
     }
   };
