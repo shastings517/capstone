@@ -108,30 +108,49 @@ app.directive("mapChart", function($parse, $window) {
           .attr("width", w)
           .attr("height", h);
 
+      finalArr = [];
 
       scope.$watchCollection(exp, function(newVal, oldVal) {
-        // states.features
-        states = states || "";
-        console.log(mapData);
-        mapData = newVal;
-        if(states){
-          places = states.features.filter(function(state){
-            return mapData.filter(function(el){ 
-             if(el.place){
-              return el.place.indexOf(state.properties.NAME10.toLowerCase()) !== -1 || el.place.indexOf(state.properties.STUSPS10.toLowerCase()) !== -1;
-             }
-          });
-        
+              // states.features
+              states = states || "";
+              mapData = newVal;
 
-          // if(el.place) {
-          //   return el.place.indexOf(states.properties.NAME10.toLowerCase()) !== -1 || el.place.indexOf(d.properties.STUSPS10.toLowerCase()) !== -1;
-          // }
-          // return _.contains(el.place, d.properties.STUSPS10.toLowerCase()) || _.contains(el.place,d.properties.NAME10.toLowerCase());
-          // return "red";
-        });
-      }
-        // redrawLineChart();
-      });
+              // go through all the states
+              // go through all of the tweets (mapData)
+
+              // return the state objects with the tweet scores
+              // where it matches
+
+              // return an array where the state
+              if(states){
+                finalArr = [];
+                states.features.forEach(function(state){
+                  return mapData.forEach(function(el){
+                   if(el.place){
+                    if(el.place.indexOf(state.properties.NAME10.toLowerCase()) !== -1 || el.place.indexOf(state.properties.STUSPS10.toLowerCase()) !== -1){
+                      state.score = el.score;
+                      state.info = el.place;
+                      finalArr.push(state);
+                    }
+                    }
+                });
+              });
+
+            }
+            d3.selectAll("path")
+                    .data(finalArr)
+                    .style("fill", function(d){
+                      if(d.score < 0){
+                        return "red";
+                      }
+                      else{
+                        return "green";
+                      }
+                    });// updateMap();
+          });
+              
+                
+            
 
       d3.json("/js/state-names.json", function(error, us) {
 
@@ -176,12 +195,16 @@ app.directive("mapChart", function($parse, $window) {
                 return "state" + d.id;  })
               .attr("d", path)
               .style("fill", function(d){
-                console.log(d.properties.STUSPS10, d.properties.NAME10);
-                console.log(mapData);
-                
-                // debugger
+
               });
 
+              //   function(d){
+
+              //   console.log(d.properties.STUSPS10, d.properties.NAME10);
+              //   console.log(mapData);
+                
+              //   // debugger
+              // });
 
          // function isBiggerThan10(element, index, array) {
          //   return element > 10;
@@ -206,6 +229,9 @@ app.directive("mapChart", function($parse, $window) {
           // var mapData = [{place:null, score:0}];
           // var stateNameArray = [{NAME10: "Wyoming", STUSPS10: "WY"}]
 
+        // function updateMap(){
+          // redrawLineChart();
+        // }
 
         // svg.selectAll("state")
         //       .data(topojson.feature(us, us.objects.state).features)
