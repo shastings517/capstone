@@ -3,9 +3,9 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
 
   $scope.count = 0;
   
-  $scope.posTweets = 0;
-  $scope.negTweets = 0;
-  $scope.neutTweets = 0;
+  // $scope.posTweets = 0;
+  // $scope.negTweets = 0;
+  // $scope.neutTweets = 0;
   
   $scope.tweets = [];
   $scope.graphData = [{time:Date.now(), score:0}];
@@ -32,12 +32,12 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
     var mapData = $scope.mapData;
 
     
-    var posTweets = $scope.posTweets;
+    // var posTweets = $scope.posTweets;
 
     // console.log(posTweetsL);
-    var negTweets = $scope.negTweets;
+    // var negTweets = $scope.negTweets;
 
-    var neutTweets = $scope.neutTweets;
+    // var neutTweets = $scope.neutTweets;
 
 
     socket.emit('keyword', keyword);
@@ -65,18 +65,18 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
       if (tweet && !tweet.limit) {
         $scope.count++;
       }
-      if(tweet.score < 0){
-        posTweets++;
-        // posTweets.push(tweet.score);
-      }
-      else if(tweet.score > 0){
-        negTweets++;
-        // negTweets.push(tweet.score);
-      }
-      else{
-        neutTweets++;
-        // neutTweets.push(tweet.score);
-      }
+      // if(tweet.score < 0){
+      //   posTweets++;
+      //   // posTweets.push(tweet.score);
+      // }
+      // else if(tweet.score > 0){
+      //   negTweets++;
+      //   // negTweets.push(tweet.score);
+      // }
+      // else{
+      //   neutTweets++;
+      //   // neutTweets.push(tweet.score);
+      // }
       // if(tweet.score === 0){
       //   $scope.neut.push(tweet)
       // }
@@ -100,8 +100,8 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
 
   //NEED TO FIX STREAM/SOCKET STOP LOGIC
   $scope.stopStream = function(){
-    socket.disconnect();
-    socket.emit('disconnect');
+    socket.emit('stop');
+    // socket.disconnect();
   };
 
   //TIMER

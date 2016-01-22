@@ -81,17 +81,6 @@ io.on('connection', function(socket) {
       // fs.appendFile('server/lib/test.txt', (tweet.user.location + "\n"), "UTF-8");
       // console.log(tweet.score, tweet.time, tweet.user.location);
     });
-
-    // var scoreObjs = {love: 1, hate: -1};
-
-    // var tweet = "love love love love hate hate";
-
-    // tweet.split(" ").reduce(function(prev, cur) {
-
-    //   return prev + (scoreObjs[cur] ? scoreObjs[cur] : 0);
-
-    // },0);
-
     
 
     stream.on('limit', function(limitMessage) {
@@ -112,8 +101,13 @@ io.on('connection', function(socket) {
       stream.stop();
     });
 
+  socket.on('stop', function(){
+    stream.stop();
+    // socket.disconnect();
+    console.log("disconnected");
   });
-
+  });
+  
   // socket.on('remove', function(q) {
   //   searches[socket.id][q].stop();
   //   delete searches[socket.id][q];
