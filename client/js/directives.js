@@ -31,7 +31,7 @@ app.directive("linearChart", function($parse, $window) {
         xAxisGen = d3.svg.axis()
                      .scale(xScale)
                      // .orient("bottom")
-                     .ticks(50);
+                     .ticks(20);
 
         yAxisGen = d3.svg.axis()
                      .scale(yScale)
@@ -113,8 +113,8 @@ app.directive("mapChart", function($parse, $window) {
       //$WATCH UPDATE FUNCTION
       scope.$watchCollection(exp, function(newVal, oldVal) {
 
-        states = states || "";
         mapData = newVal;
+        states = states || "";
 
         // go through all the states
         // go through all of the tweets (mapData)
@@ -131,15 +131,20 @@ app.directive("mapChart", function($parse, $window) {
             return mapData.forEach(function(el){
               if(el.place){
                 if(el.place.indexOf(state.properties.NAME10.toLowerCase()) !== -1 || el.place.indexOf(state.properties.STUSPS10.toLowerCase()) !== -1){
-                  state.score = 0;
-                  state.score += el.score;
-                  // state.score = el.score;
-                  // el.score < 0 ? state.score += el.score : state.score += el.score;
-                  console.log("STATE",state.score);
-                  console.log("EL", el.score);
+                  if((finalArr.indexOf(state)) !== -1){
+                    // debugger
+                    state.score += el.score;
+                    // el.score < 0 ? state.score += el.score : state.score += el.score;
+                    console.log("STATE",state.score, state.info);
+                    console.log("EL", el.score);
                   
-                  state.info = el.place;
-                  finalArr.push(state);
+                  } 
+                  else {
+                    state.score = el.score;
+                    state.info = el.place;
+                    finalArr.push(state);
+                  }
+                  
                 }
               }
             });
@@ -147,33 +152,40 @@ app.directive("mapChart", function($parse, $window) {
           console.log("FINAL", finalArr)
           // console.log(el.score)
         }
-        d3.selectAll("path")
-                .data(finalArr)
-
-                .style("fill", function(d, i){
-                  var stateScore = d.score;
+        svg.selectAll("path")
+                .data(finalArr, function(d){
+                  return d.id;
+                })
+                // .enter()
+                .style("fill", function(d){
+                  // var stateScore = d.score;
                   
-                  // console.log(stateScore)
+                  console.log("ID", d.id);
 
                   // stateScore.reduce(function(p,c){
                   //   return p + c;
                   // });
-
-                  if(d.score <= -8){
+                  if(d.score <= 0){
                     return "FF9B6D";
                   }
-                  if(d.score <= -5 && d.score > -8){
-                    return "FFD37C";
-                  }
-                  if(d.score <= 0 && d.score > -5){
-                    return "EAFD89";
-                  }
-                  if(d.score <= 5 && d.score > 0){
-                    return "7DBCA9";
-                  }
-                  if(d.score < 13){
+                  if(d.score > 0){
                     return "57BB7E";
                   }
+                  // if(d.score <= -8){
+                  //   return "FF9B6D";
+                  // }
+                  // if(d.score <= -5 && d.score > -8){
+                  //   return "FFD37C";
+                  // }
+                  // if(d.score <= 0 && d.score > -5){
+                  //   return "EAFD89";
+                  // }
+                  // if(d.score <= 5 && d.score > 0){
+                  //   return "7DBCA9";
+                  // }
+                  // if(d.score <= 13 && d.score > 5){
+                  //   return "57BB7E";
+                  // }
                   
                   // else if(d.score > ){
                   //   return
@@ -182,26 +194,26 @@ app.directive("mapChart", function($parse, $window) {
                   //   return "green";
                   // }
 
-                })
-                .transition()
-                // .duration(25)
-                .style("fill", function(d,i){
-                  if(d.score <= -8){
-                    return "FF9B6D";
-                  }
-                  if(d.score <= -5 && d.score > -8){
-                    return "FFD37C";
-                  }
-                  if(d.score <= 0 && d.score > -5){
-                    return "EAFD89";
-                  }
-                  if(d.score <= 5 && d.score > 0){
-                    return "7DBCA9";
-                  }
-                  if(d.score < 13){
-                    return "57BB7E";
-                  }
                 });
+                // .transition()
+                // // .duration(25)
+                // .style("fill", function(d,i){
+                //   if(d.score <= -8){
+                //     return "FF9B6D";
+                //   }
+                //   if(d.score <= -5 && d.score > -8){
+                //     return "FFD37C";
+                //   }
+                //   if(d.score <= 0 && d.score > -5){
+                //     return "EAFD89";
+                //   }
+                //   if(d.score <= 5 && d.score > 0){
+                //     return "7DBCA9";
+                //   }
+                //   if(d.score < 13){
+                //     return "57BB7E";
+                //   }
+                // });
       });     
 
       d3.json("/js/state-names.json", function(error, us) {

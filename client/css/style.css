@@ -42,6 +42,11 @@
   /*margin-left: 1px;*/
 }
 
+.nav-pills > li.active > a, .btn-primary {
+  background-color: #6C6C6C !important;
+  border-color: #6C6C6C !important;
+  border-radius: 25px; 
+}
 /*MAP*/
 /*.land {
   fill: #222;

@@ -9,7 +9,7 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
   
   $scope.tweets = [];
   $scope.graphData = [{time:Date.now(), score:0}];
-  $scope.mapData = [{place:"ca", score:3},{place:"ca", score:3}];
+  $scope.mapData = [{place:null, score:0}];
   
   //make graph data array of objects on back end with timestamp?
   // $scope.graphData = [
@@ -24,6 +24,10 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
   //   $scope.graphData.push({hour: hour, sales: sales});
   // }, 1000, 10);
 
+  $scope.clearTweets = function(){
+    $scope.tweets = [];
+
+  };
 
   $scope.getTweets = function(keyword){
 
@@ -31,6 +35,7 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
     var graphData = $scope.graphData;
     var mapData = $scope.mapData;
 
+    // tweets = [];
     
     // var posTweets = $scope.posTweets;
 
@@ -94,12 +99,13 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
       //     tweet.score--;
       //     tweet.color = '#FF9B6D';
       // }
-      $scope.vm.keyword = '';
+      // $scope.vm.keyword = '';
     });
   };
 
   //NEED TO FIX STREAM/SOCKET STOP LOGIC
   $scope.stopStream = function(){
+    // $scope.tweets = [];
     socket.emit('stop');
     // socket.disconnect();
   };
@@ -138,7 +144,7 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
 }]);
 
 //SINGLE PAGE CONTROLS 
-app.controller("tabController", function($scope){
+app.controller("TabController", function($scope){
   $scope.tab = 1;
 
   $scope.setTab = function(newTab){
