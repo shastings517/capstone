@@ -75,7 +75,7 @@ io.on('connection', function(socket) {
 
 
       tweet.place = tweet.user.location === null? "" : tweet.user.location.toLowerCase().split(' ');
-      // console.log(tweet.place);
+      console.log(tweet.place);
       
       socket.emit('tweet', tweet);
       // fs.appendFile('server/lib/test.txt', (tweet.user.location + "\n"), "UTF-8");

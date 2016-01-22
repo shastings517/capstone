@@ -9,7 +9,7 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
   
   $scope.tweets = [];
   $scope.graphData = [{time:Date.now(), score:0}];
-  $scope.mapData = [{place:null, score:0}];
+  $scope.mapData = [{place:"ca", score:3},{place:"ca", score:3}];
   
   //make graph data array of objects on back end with timestamp?
   // $scope.graphData = [

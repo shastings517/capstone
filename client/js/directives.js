@@ -125,26 +125,81 @@ app.directive("mapChart", function($parse, $window) {
         // return an array where the state
         if(states){
           finalArr = [];
+          // state.score = 0;
+          // console.log();
           states.features.forEach(function(state){
             return mapData.forEach(function(el){
               if(el.place){
                 if(el.place.indexOf(state.properties.NAME10.toLowerCase()) !== -1 || el.place.indexOf(state.properties.STUSPS10.toLowerCase()) !== -1){
-                  state.score = el.score;
+                  state.score = 0;
+                  state.score += el.score;
+                  // state.score = el.score;
+                  // el.score < 0 ? state.score += el.score : state.score += el.score;
+                  console.log("STATE",state.score);
+                  console.log("EL", el.score);
+                  
                   state.info = el.place;
                   finalArr.push(state);
                 }
               }
             });
           });
+          console.log("FINAL", finalArr)
+          // console.log(el.score)
         }
         d3.selectAll("path")
                 .data(finalArr)
-                .style("fill", function(d){
-                  if(d.score < 0){
-                    return "red";
+
+                .style("fill", function(d, i){
+                  var stateScore = d.score;
+                  
+                  // console.log(stateScore)
+
+                  // stateScore.reduce(function(p,c){
+                  //   return p + c;
+                  // });
+
+                  if(d.score <= -8){
+                    return "FF9B6D";
                   }
-                  else{
-                    return "green";
+                  if(d.score <= -5 && d.score > -8){
+                    return "FFD37C";
+                  }
+                  if(d.score <= 0 && d.score > -5){
+                    return "EAFD89";
+                  }
+                  if(d.score <= 5 && d.score > 0){
+                    return "7DBCA9";
+                  }
+                  if(d.score < 13){
+                    return "57BB7E";
+                  }
+                  
+                  // else if(d.score > ){
+                  //   return
+                  // }
+                  // else{
+                  //   return "green";
+                  // }
+
+                })
+                .transition()
+                // .duration(25)
+                .style("fill", function(d,i){
+                  if(d.score <= -8){
+                    return "FF9B6D";
+                  }
+                  if(d.score <= -5 && d.score > -8){
+                    return "FFD37C";
+                  }
+                  if(d.score <= 0 && d.score > -5){
+                    return "EAFD89";
+                  }
+                  if(d.score <= 5 && d.score > 0){
+                    return "7DBCA9";
+                  }
+                  if(d.score < 13){
+                    return "57BB7E";
                   }
                 });
       });     
@@ -175,9 +230,7 @@ app.directive("mapChart", function($parse, $window) {
                 console.log('features', d);
                 return "state" + d.id;  })
               .attr("d", path)
-              .style("fill", function(d){
-
-              });
+              .style("fill", "white");
               
         //draw inner state borders
         svg.append("path")

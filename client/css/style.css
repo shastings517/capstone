@@ -32,8 +32,12 @@
   height: 480px;
   border: 2px solid gray;
   border-radius: 5px;
+  /*overflow-y: scroll;*/
 }
 
+.tweetContainer{
+  overflow-y: scroll;
+}
 .graphContainer{
   /*margin-left: 1px;*/
 }

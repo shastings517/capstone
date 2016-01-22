@@ -1,0 +1,5 @@
+deploy
+fix disconnect/reconnect
+fix map colors
+add sentiment libraries
+make tabs for graphs
