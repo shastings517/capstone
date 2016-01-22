@@ -11,33 +11,6 @@ var io = require('socket.io')(server);
 var Twit = require('twit');
 var fs = require('fs');
 
-// fs.readFile('server/AFINN-111.txt','utf8',(err, data) => {
-//   if (err) throw err;
-//   // data = data.split();
-//       // .reduce(function(m,i){
-//         // var s = i.split(':');
-//         // m[s.shift()] = s.join(':');
-//         // return m;
-  
-
-
-//   console.log(data);
-// });
-
-// console.log(JSON.stringify(array));
-// for(i in array) {
-    // console.log(array[i]);
-
-// }
-
-// data2 = data2.split(/\r?\n/).reduce(function(m,i){
-//     var s = i.split(':');
-//     m[s.shift()] = s.join(':');
-//     return m;
-// }, {});
-
-// JSON.stringify(data2);
-
 app.use(morgan("tiny"));
 app.use(bodyParser.json());
 
@@ -75,17 +48,7 @@ var scoreObj = {};
 sentDictionary.forEach(function(word) {
   var split = word.split(' ');
   scoreObj[split[0]] = Number(split[1]); 
-  // console.log(scoreObj[split[0]] = Number(split[1]));
-  // console.log(scoreObj) 
 });
-
-// statesInfo.forEach(function(state){
-
-// })
-// array.forEach(function(word) {
-//   var 
-// })
-// console.log(scoreObj);
 
 // SOCKET.IO LOGIC
 io.on('connection', function(socket) {
@@ -103,8 +66,6 @@ io.on('connection', function(socket) {
       tweet.place = '';
       tweet.time = Date.now();
       // console.log(tweet.location);
-      
-      // var t = tweet.text.toLowerCase();
 
       tweet.text.toLowerCase().split(' ').reduce(function(pv, cr){
         tweet.score = pv + (scoreObj[cr] ? scoreObj[cr] : 0);
@@ -114,16 +75,11 @@ io.on('connection', function(socket) {
 
 
       tweet.place = tweet.user.location === null? "" : tweet.user.location.toLowerCase().split(' ');
-      console.log(tweet.place);
-      // tweet.text.toLowerCase().split(' ').forEach(function(val, i, arr){
-
-      // });
+      // console.log(tweet.place);
       
       socket.emit('tweet', tweet);
       // fs.appendFile('server/lib/test.txt', (tweet.user.location + "\n"), "UTF-8");
-      console.log(tweet.score, tweet.time, tweet.user.location);
-      //split tweet into array of words
-      //helper function to calculate score
+      // console.log(tweet.score, tweet.time, tweet.user.location);
     });
 
     // var scoreObjs = {love: 1, hate: -1};
@@ -136,8 +92,7 @@ io.on('connection', function(socket) {
 
     // },0);
 
-    // var mapData = [{place:null, score:0}];
-    // 
+    
 
     stream.on('limit', function(limitMessage) {
       console.log('Limit for User : ' + socket.id + ' on query ' + q + ' has reached!');

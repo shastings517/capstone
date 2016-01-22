@@ -110,65 +110,51 @@ app.directive("mapChart", function($parse, $window) {
 
       finalArr = [];
 
+      //$WATCH UPDATE FUNCTION
       scope.$watchCollection(exp, function(newVal, oldVal) {
-              // states.features
-              states = states || "";
-              mapData = newVal;
 
-              // go through all the states
-              // go through all of the tweets (mapData)
+        states = states || "";
+        mapData = newVal;
 
-              // return the state objects with the tweet scores
-              // where it matches
+        // go through all the states
+        // go through all of the tweets (mapData)
 
-              // return an array where the state
-              if(states){
-                finalArr = [];
-                states.features.forEach(function(state){
-                  return mapData.forEach(function(el){
-                   if(el.place){
-                    if(el.place.indexOf(state.properties.NAME10.toLowerCase()) !== -1 || el.place.indexOf(state.properties.STUSPS10.toLowerCase()) !== -1){
-                      state.score = el.score;
-                      state.info = el.place;
-                      finalArr.push(state);
-                    }
-                    }
-                });
-              });
+        // return the state objects with the tweet scores
+        // where it matches
 
-            }
-            d3.selectAll("path")
-                    .data(finalArr)
-                    .style("fill", function(d){
-                      if(d.score < 0){
-                        return "red";
-                      }
-                      else{
-                        return "green";
-                      }
-                    });// updateMap();
+        // return an array where the state
+        if(states){
+          finalArr = [];
+          states.features.forEach(function(state){
+            return mapData.forEach(function(el){
+              if(el.place){
+                if(el.place.indexOf(state.properties.NAME10.toLowerCase()) !== -1 || el.place.indexOf(state.properties.STUSPS10.toLowerCase()) !== -1){
+                  state.score = el.score;
+                  state.info = el.place;
+                  finalArr.push(state);
+                }
+              }
+            });
           });
-              
-                
-            
+        }
+        d3.selectAll("path")
+                .data(finalArr)
+                .style("fill", function(d){
+                  if(d.score < 0){
+                    return "red";
+                  }
+                  else{
+                    return "green";
+                  }
+                });
+      });     
 
       d3.json("/js/state-names.json", function(error, us) {
 
         if (error) return console.error(error);
-        // console.log("first", us.objects.state.geometries[1].properties);
         
         states = topojson.feature(us, us.objects.state);
         
-        var stateObjArr = us.objects.state.geometries;
-        var stateNameArr = [];
-
-        stateObjArr.forEach(function(el){
-          stateNameArr.push(el.properties);
-        });
-
-        // for(var i=0; i<d3.values(us.objects.state.geometries[1].properties);
-        
-        // console.log("STATE", stateNameArr);
         var projection = d3.geo.albersUsa()
                            .scale(950)
                            .translate([w / 2, h / 2]);
@@ -176,16 +162,11 @@ app.directive("mapChart", function($parse, $window) {
         var path = d3.geo.path()
                      .projection(projection);
 
-        // function stateCheck(){
-
-        // }
-
         //draw full map
         svg.append("path")
               .datum(states)
               .attr("d", path);
               
-
         //assign every state an id and color
         svg.selectAll("state")
               .data(topojson.feature(us, us.objects.state).features)
@@ -197,20 +178,6 @@ app.directive("mapChart", function($parse, $window) {
               .style("fill", function(d){
 
               });
-
-              //   function(d){
-
-              //   console.log(d.properties.STUSPS10, d.properties.NAME10);
-              //   console.log(mapData);
-                
-              //   // debugger
-              // });
-
-         // function isBiggerThan10(element, index, array) {
-         //   return element > 10;
-         // }
-         // [2, 5, 8, 1, 4].some(isBiggerThan10);  // false
-         // [12, 5, 8, 1, 4].some(isBiggerThan10); // true
               
         //draw inner state borders
         svg.append("path")
@@ -223,98 +190,8 @@ app.directive("mapChart", function($parse, $window) {
             .datum(topojson.mesh(us, us.objects.state, function(a, b) { return a === b; }))
             .attr("d", path)
             .attr("class", "us-boundary");
-
-            console.log("THIS", us.objects.state.geometries[1].properties);
-
-          // var mapData = [{place:null, score:0}];
-          // var stateNameArray = [{NAME10: "Wyoming", STUSPS10: "WY"}]
-
-        // function updateMap(){
-          // redrawLineChart();
-        // }
-
-        // svg.selectAll("state")
-        //       .data(topojson.feature(us, us.objects.state).features)
-        //       .style("fill", function(d, i){
-        //         console.log(d);
-        //         // d.properties
-        //       });
-
-
-              // var scoreObjs = {love: 1, hate: -1};
-
-              // var tweet = "love love love love hate hate";
-
-              // tweet.split(" ").reduce(function(prev, cur) {
-
-              //   return prev + (scoreObjs[cur] ? scoreObjs[cur] : 0);
-
-              // },0);
-
-              
-              // d.filter(function(el){
-              //   el.NAME10 === mapData.place ? 
-              // })
-
-              // .attr("class", function(d) { return "state" + d.id; })
-              // .attr("d", path)
-              // .style("fill", "white");
-        //import sentiment date and style state color wrap in function    
-        // svg.append("path")
-        //     // debugger
-        //     .datum(topojson.feature(us, us.objects.state))
-        //     .attr("d", path)
-        //     .attr("class", "place");
-
-        // if(mapData === )
-
-        //FUNCTION FOR COLORING MAP GOES HERE
-        // function setMapParameters() {
-        //   lineFun = d3.svg.line()
-        //               .x(function (d) {
-        //                 return xScale(d.time);
-        //               })
-        //               .y(function (d) {
-        //                 return yScale(d.score);
-        //               })
-        //               .interpolate("basis");
-          
-        // }
-
-        // //FUNCTION TO DRAW MAP
-        // function drawLineChart() {
-
-        //   setChartParameters();
-
-        //    svg.append("svg:path")
-        //       .attr({
-        //         d: lineFun(graphData),
-        //         "stroke": "blue",
-        //         "stroke-width": 2,
-        //         "fill": "none",
-        //         "class": pathClass
-        //    });
-        // }
-
-
-        // //FUNCTION TO REDRAW MAP
-        // function redrawLineChart() {
-
-        //   setChartParameters();
-        //   svg.selectAll("g.y.axis").call(yAxisGen);
-        //   svg.selectAll("g.x.axis").call(xAxisGen);
-
-        //   svg.selectAll("." + pathClass)
-        //      .attr({
-        //        d: lineFun(graphData)
-        //      });
-        // }
-
-
-        
-
+            
       });
-    
-  }
-};
+    }
+  };
 });
