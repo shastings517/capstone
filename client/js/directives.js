@@ -149,7 +149,7 @@ app.directive("mapChart", function($parse, $window) {
               }
             });
           });
-          console.log("FINAL", finalArr)
+          // console.log("FINAL", finalArr)
           // console.log(el.score)
         }
         svg.selectAll("path")
@@ -158,43 +158,19 @@ app.directive("mapChart", function($parse, $window) {
                 })
                 // .enter()
                 .style("fill", function(d){
-                  // var stateScore = d.score;
-                  
-                  console.log("ID", d.id);
-
-                  // stateScore.reduce(function(p,c){
-                  //   return p + c;
-                  // });
                   if(d.score <= 0){
                     return "FF9B6D";
                   }
                   if(d.score > 0){
                     return "57BB7E";
                   }
-                  // if(d.score <= -8){
-                  //   return "FF9B6D";
-                  // }
-                  // if(d.score <= -5 && d.score > -8){
-                  //   return "FFD37C";
-                  // }
-                  // if(d.score <= 0 && d.score > -5){
-                  //   return "EAFD89";
-                  // }
-                  // if(d.score <= 5 && d.score > 0){
-                  //   return "7DBCA9";
-                  // }
-                  // if(d.score <= 13 && d.score > 5){
-                  //   return "57BB7E";
-                  // }
-                  
-                  // else if(d.score > ){
-                  //   return
-                  // }
-                  // else{
-                  //   return "green";
-                  // }
-
+                  if(d.score === 0){
+                    return "EAFD89";
+                  }
                 });
+                // .style("opacity", function(d){
+                //   return d.score/100;
+                // });
                 // .transition()
                 // // .duration(25)
                 // .style("fill", function(d,i){

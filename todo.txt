@@ -1,5 +1,9 @@
-deploy
-fix disconnect/reconnect
+fix touched/untouched after search
+add reset button 
 fix map colors
 add sentiment libraries
 make tabs for graphs
+
+
+background
+  http://static1.squarespace.com/static/51e1c039e4b053e5f00339b6/t/54ae1072e4b08953398733c9/1420693618996/Leather_black_3_by_jaqx_textures-1_zps6f720620.jpg?format=1500w

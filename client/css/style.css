@@ -1,3 +1,113 @@
+body { 
+  background: url(http://www.sqproductions.com/wp-content/uploads/2014/05/Leather.jpeg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+div.colorBar{/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff5107+0,ffd37c+25,eafd89+50,7dbca9+75,0bba4e+100 */
+  background: rgb(255,81,7); /* Old browsers */
+  background: -moz-linear-gradient(left,  rgba(255,81,7,1) 0%, rgba(255,211,124,1) 25%, rgba(234,253,137,1) 50%, rgba(125,188,169,1) 75%, rgba(11,186,78,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left,  rgba(255,81,7,1) 0%,rgba(255,211,124,1) 25%,rgba(234,253,137,1) 50%,rgba(125,188,169,1) 75%,rgba(11,186,78,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right,  rgba(255,81,7,1) 0%,rgba(255,211,124,1) 25%,rgba(234,253,137,1) 50%,rgba(125,188,169,1) 75%,rgba(11,186,78,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff5107', endColorstr='#0bba4e',GradientType=1 ); /* IE6-9 */
+  height: 50px;
+  margin-top: 10px;
+  /*width: 90%;*/
+  /*margin: 0 auto;*/
+  border-radius: 5px;
+  /*position: absolute;
+  left:50%;*/
+}
+
+/*.col-xs-1{
+  color: #575652;
+}*/
+
+.fa-minus-circle{
+  color: #FF5107;
+}
+
+.fa-plus-circle{
+  color: #0BBA4E;  
+}
+
+/*navbar*/
+.navbar { 
+  background-color: #222222;
+  min-height: 80px;
+}
+.navbar-inverse .navbar-nav>.active>a:hover,.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus { background-color: #}
+.navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.open>a,.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover,.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus { background-color: #080808}
+.dropdown-menu { 
+  background-color: #ffffff
+}
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+  background-color: #428bca
+}
+.navbar-inverse { 
+  background-image: none; 
+}
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { 
+  background-image: none; 
+}
+.navbar-inverse { 
+  border-color: #080808
+}
+.navbar-inverse .navbar-brand { 
+  color: #999999
+}
+.navbar-inverse .navbar-brand:hover { 
+  color: #ffffff
+}
+.navbar-inverse .navbar-nav>li>a { 
+  color: #999999
+}
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus { 
+  color: #ffffff
+}
+.navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus { 
+  color: #ffffff
+}
+.navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus { 
+  color: #ffffff
+}
+.dropdown-menu>li>a { 
+  color: #333333
+}
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { 
+  color: #ffffff
+}
+.navbar-inverse .navbar-nav>.dropdown>a .caret { 
+  border-top-color: #999999
+}
+.navbar-inverse .navbar-nav>.dropdown>a:hover .caret { 
+  border-top-color: #ffffff
+}
+.navbar-inverse .navbar-nav>.dropdown>a .caret { 
+  border-bottom-color: #999999
+}
+.navbar-inverse .navbar-nav>.dropdown>a:hover .caret { 
+  border-bottom-color: #ffffff
+}
+
+.navbar-brand{
+  font-size: 40px;
+  margin-top: 5px;
+  position: relative;
+  left: -100px;
+
+}
+
+a.logout{
+  font-size: 30px;
+  margin-top: 10px;
+  position: relative;
+  right: -100px;
+
+}
+
 .scale{
   font-size: 30px;
 }
