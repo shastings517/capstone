@@ -66,38 +66,50 @@
 <div class="container-fluid">
   <div class="row" ng-controller="TabController">
 
-    <ul class="nav nav-pills">
-      <li ng-class="{ active: isSet(1) }">
-          <a href ng-click="setTab(1)">Graph</a>
-      </li>
-      <li ng-class="{ active: isSet(2) }">
-          <a href ng-click="setTab(2)">Map</a>
-      </li>
-      <!-- <li ng-class="{ active: isSet(3) }">
-          <a href ng-click="setTab(3)">Messages</a>
-      </li> -->
-    </ul>
+    <div class="col-xs-8 graphContainer text-center">
+      <ul class="nav nav-pills">
+        <li ng-class="{ active: isSet(1) }">
+          <a href id="graphPill" ng-click="setTab(1)">G</a>
+        </li>
+        <li ng-class="{ active: isSet(2) }">
+          <a href id="mapPill" ng-click="setTab(2)">M</a>
+        </li>
+        <li ng-class="{ active: isSet(3) }">
+          <a href id="dataPill" ng-click="setTab(3)">D</a>
+        </li>
+        
+      </ul>
 
-    <div class="col-xs-8 graphContainer">
       <div ng-show="isSet(1)">
         <div linear-chart chart-data="graphData"></div>
       </div>
       <div ng-show="isSet(2)">
         <div map-chart map-data="mapData"></div>
       </div>
+      <div ng-show="isSet(3)">
+        <!-- <div map-chart map-data="mapData"></div> -->
+        <h3>tweetCount: {{count}}</h3>
+        <h3>time Elapsed: {{clock}}</h3>
+      </div>
+
       
       
     </div>
     <div class="col-xs-4 tweetContainer">
-      <form ng-submit="getTweets(vm.keyword)">
-        <label for="keyword">#keyword</label>
-        <input type="text" ng-model="vm.keyword" id="task">
-        <input type="submit" class="btn btn-default" value="get tweets">
-      </form>
-      <div class="btn btn-default" ng-click="stopStream(); stopTimer()">stop stream</div>
+      <!-- <div class="col-xs-9"> -->
+        <form ng-submit="getTweets(vm.keyword)">
+          <!-- <label for="keyword">#keyword</label> -->
+          <input class="focus" type="text" ng-model="vm.keyword" id="keywordInput">
+          <!-- <input type="submit"> -->
+          <button class="btn btn-default" type="submit" id="keywordBtn" ng-click="activeButton" ng-class="{'active': isActive}"><i class="fa fa-power-off fa-2x"></i></button>
+          <span class="btn btn-default" id="resetBtn"><i class="fa fa-refresh fa-2x"></i></span>
+        </form>
+      <!-- </div> -->
+      <!-- <div class="col-xs-3"> -->
+      <!-- </div> -->
+      <!-- <div class="btn btn-default" ng-click="stopStream(); stopTimer()">stop stream</div> -->
       <!-- <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span> -->
-      <h3>tweetCount: {{count}}</h3>
-      <h3>time Elapsed: {{clock}}</h3>
+      
       <div ng-repeat="t in tweets track by $index">
         <p>{{t.user.screen_name}} {{t.text}} {{t.user.location}} {{t.score}}</p>
       </div>

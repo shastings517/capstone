@@ -1,7 +1,7 @@
 app.directive("linearChart", function($parse, $window) {
   return{
     restrict: "EA",
-    template: "<svg width='850' height='400'></svg>",
+    template: "<svg width='900' height='450'></svg>",
     link: function(scope, elem, attrs){
 
       var exp = $parse(attrs.chartData);
@@ -25,12 +25,13 @@ app.directive("linearChart", function($parse, $window) {
                    .range([padding, rawSvg.clientWidth - padding]);
 
         yScale = d3.scale.linear()
-                   .domain([-10, 10])
-                   .range([rawSvg.clientHeight - padding, 0]);
+                   .domain([-15, 15])
+                   .range([rawSvg.clientHeight - padding, 10]);
 
         xAxisGen = d3.svg.axis()
                      .scale(xScale)
                      // .orient("bottom")
+                     .tickValues([])
                      .ticks(20);
 
         yAxisGen = d3.svg.axis()
@@ -54,18 +55,18 @@ app.directive("linearChart", function($parse, $window) {
 
         svg.append("svg:g")
            .attr("class", "x axis")
-           .attr("transform", "translate(0,180)")
+           .attr("transform", "translate(0,216)")
            .call(xAxisGen);
 
          svg.append("svg:g")
             .attr("class", "y axis")
-            .attr("transform", "translate(20,0)")
+            .attr("transform", "translate(25,0)")
             .call(yAxisGen);
 
          svg.append("svg:path")
             .attr({
               d: lineFun(graphData),
-              "stroke": "blue",
+              "stroke": "7DBCA9",
               "stroke-width": 2,
               "fill": "none",
               "class": pathClass
@@ -95,8 +96,8 @@ app.directive("mapChart", function($parse, $window) {
     template: "<svg></svg>",
     link: function(scope, elem, attrs){
 
-      var w = 850;
-      var h = 400;
+      var w = 900;
+      var h = 450;
 
       var exp = $parse(attrs.mapData);
       mapData = exp(scope);
@@ -152,25 +153,59 @@ app.directive("mapChart", function($parse, $window) {
           // console.log("FINAL", finalArr)
           // console.log(el.score)
         }
+        // svg.selectAll("path")
+        //         .style("fill","white");
+
         svg.selectAll("path")
                 .data(finalArr, function(d){
                   return d.id;
                 })
                 // .enter()
-                .style("fill", function(d){
-                  if(d.score <= 0){
-                    return "FF9B6D";
+                
+                // .style("fill", "white")
+                .style("fill-opacity", function(d){
+                  if(d.score <= -20){
+                    return 1;
+                  }
+                  if(d.score <= -15 && d.score > -20){
+                    return 0.8;
+                  }
+                  if(d.score <= -10 && d.score > -15){
+                    return 0.6;
+                  }
+                  if(d.score <= -5 && d.score > -10){
+                    return 0.4;
+                  }
+                  if(d.score < 0 && d.score > -5){
+                    return 0.2;
+                  }
+                  if(d.score <= 5 && d.score > 0){
+                    return 0.2;
+                  }
+                  if(d.score <= 10 && d.score > 5){
+                    return 0.6;
+                  }
+                  if(d.score <= 15 && d.score > 10){
+                    return 0.8;
+                  }
+                  if(d.score <= 20 && d.score > 15){
+                    return 1;
+                  }
+                  
+
+
+                  
+                }).style("fill", function(d){
+                  if(d.score < 0){
+                    return "FF5107";
                   }
                   if(d.score > 0){
-                    return "57BB7E";
+                    return "0BBA4E";
                   }
                   if(d.score === 0){
                     return "EAFD89";
                   }
                 });
-                // .style("opacity", function(d){
-                //   return d.score/100;
-                // });
                 // .transition()
                 // // .duration(25)
                 // .style("fill", function(d,i){
@@ -199,7 +234,7 @@ app.directive("mapChart", function($parse, $window) {
         states = topojson.feature(us, us.objects.state);
         
         var projection = d3.geo.albersUsa()
-                           .scale(950)
+                           .scale(880)
                            .translate([w / 2, h / 2]);
         
         var path = d3.geo.path()
@@ -215,10 +250,10 @@ app.directive("mapChart", function($parse, $window) {
               .data(topojson.feature(us, us.objects.state).features)
               .enter().append("path")
               .attr("class", function(d) { 
-                console.log('features', d);
-                return "state" + d.id;  })
+                // console.log('features', d);
+                return "state";  })
               .attr("d", path)
-              .style("fill", "white");
+              .style("fill", "#999999");
               
         //draw inner state borders
         svg.append("path")
