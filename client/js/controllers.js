@@ -24,7 +24,8 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
   //   $scope.graphData.push({hour: hour, sales: sales});
   // }, 1000, 10);
   
-  // $scope.isActive = false;
+  $scope.startBtnIsActive = false;
+  $scope.streamIsActive = false;
   // $scope.activeButton = function() {
   //   $scope.isActive = !$scope.isActive;
   // };
@@ -39,42 +40,60 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
     var tweets = $scope.tweets;
     var graphData = $scope.graphData;
     var mapData = $scope.mapData;
+    $scope.startBtnIsActive = !$scope.startBtnIsActive;
 
     // tweets = [];
     
     // var posTweets = $scope.posTweets;
-
+    function stopStream(){
+      socket.emit('stop');
+    }
     // console.log(posTweetsL);
     // var negTweets = $scope.negTweets;
 
     // var neutTweets = $scope.neutTweets;
 
+    if($scope.startBtnIsActive){
+      console.log("working")
+      socket.emit('keyword', keyword);
 
-    socket.emit('keyword', keyword);
+      socket.on('tweet', function(tweet) {
+        
+        function GraphDatum(time, score){
+          this.time = time;
+          this.score = score;
+        }
 
-    socket.on('tweet', function(tweet) {
-      
-      function GraphDatum(time, score){
-        this.time = time;
-        this.score = score;
-      }
+        function MapDatum(place, score){
+          this.place = place;
+          this.score = score;
+        }
+        
+        
+        tweets.push(tweet);
 
-      function MapDatum(place, score){
-        this.place = place;
-        this.score = score;
-      }
-      
-      tweets.push(tweet);
-
-      graphData.push(new GraphDatum(tweet.time, tweet.score));
-      
-      //tweet place is an array of words. tweeter's location
-      mapData.push(new MapDatum(tweet.place, tweet.score));
+        graphData.push(new GraphDatum(tweet.time, tweet.score));
+        
+        //tweet place is an array of words. tweeter's location
+        mapData.push(new MapDatum(tweet.place, tweet.score));
 
       // console.log(graphData);
-      if (tweet && !tweet.limit) {
-        $scope.count++;
-      }
+        if (tweet && !tweet.limit) {
+          $scope.count++;
+        }
+      });
+    }
+
+
+    if($scope.startBtnIsActive === false){
+      console.log("disconnected");
+      $scope.streamIsActive = !$scope.streamIsActive;
+      stopStream();
+    }
+  };
+}]);
+
+
       // if(tweet.score < 0){
       //   posTweets++;
       //   // posTweets.push(tweet.score);
@@ -105,15 +124,15 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
       //     tweet.color = '#FF9B6D';
       // }
       // $scope.vm.keyword = '';
-    });
-  };
+    
+  
 
   //NEED TO FIX STREAM/SOCKET STOP LOGIC
-  $scope.stopStream = function(){
-    // $scope.tweets = [];
-    socket.emit('stop');
-    // socket.disconnect();
-  };
+  // $scope.stopStream = function(){
+  //   // $scope.tweets = [];
+  //   socket.emit('stop');
+  //   // socket.disconnect();
+  // };
 
   //TIMER
   
@@ -146,7 +165,6 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
   
   
 
-}]);
 
 //SINGLE PAGE CONTROLS 
 app.controller("TabController", function($scope){

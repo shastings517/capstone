@@ -77,12 +77,12 @@
       </div>
       <div class="col-xs-4 tweetContainer">
         <!-- <div class="col-xs-9"> -->
-          <form ng-submit="getTweets(vm.keyword)">
+          <form>
             <!-- <label for="keyword">#keyword</label> -->
-            <input class="focus" type="text" ng-model="vm.keyword" id="keywordInput" placeholder="Enter a Keyword">
+            <input class="focus" type="text" ng-model="vm.keyword" id="keywordInput" placeholder="Enter a Keyword" autofocus>
             <!-- <input type="submit"> -->
-            <button class="btn btn-default" type="submit" id="keywordBtn" ng-click="activeButton" ng-class="{'active': isActive}"><i class="fa fa-power-off fa-2x"></i></button>
-            <span class="btn btn-default" id="resetBtn"><i class="fa fa-refresh fa-2x"></i></span>
+            <button class="btn btn-default" type="submit" id="keywordBtn" ng-click="getTweets(vm.keyword)" ng-class="{'activeBtn': isActive, 'inactiveBtn': !isActive}" ng-disabled="!vm.keyword || streamisActive === 3"><i class="fa fa-power-off fa-2x"></i></button>
+            <span class="btn btn-default" id="resetBtn" ng-click="resetData()"><i class="fa fa-refresh fa-2x"></i></span>
           </form>
         <!-- </div> -->
         <!-- <div class="col-xs-3"> -->
