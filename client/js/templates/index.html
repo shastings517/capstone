@@ -7,13 +7,15 @@
       <a href="./" class="navbar-brand"><i class="fa fa-twitter-square"></i> Tweeter</a>
     </div>
     <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      <!-- <ul class="nav navbar-nav navbar-center">
+        <li>?</li>
+      </ul> -->
       <ul class="nav navbar-nav navbar-right pull-right">
-        <li><a class="logout" href="/logout">Logout</a></li>
+        <!-- <li><a href=""></a>?</li> -->
+        <li><a href="#" class="help"><i class="fa fa-question-circle fa-3x"></i></a></li>
+        <li><a class="logout" href="/logout">Logout <i class="fa fa-sign-out"></i></a></li>
 
-        <!-- <li>
-          <a href="#">Getting started</a>
-        </li>
-        <li class="dropdown">
+       <!--  <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="#">Action</a></li>
@@ -25,11 +27,11 @@
         </li>
         <li>
           <a href="#">Components</a>
-        </li>
-        <li>
+        </li> -->
+        <!-- <li>
           <a href="#">JavaScript</a>
-        </li>
-        <li class="active">
+        </li> -->
+        <!-- <li class="active">
           <a href="#">Customize</a>
         </li> -->
       </ul>
@@ -37,89 +39,62 @@
   </div>
 </header>
 
-
-
-
-
 <div ng-controller="TweetController" class="container-fluid">
-  <!-- <div class="row">
-    
-    <div class="col-xs-5ths text-center scale">Negative</div>
-    <div class="col-xs-5ths text-center scale"><span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span></div>
-    <div class="col-xs-5ths text-center scale">Neutral</div>
-    <div class="col-xs-5ths text-center scale"><span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span></div>
-    <div class="col-xs-5ths text-center scale">Positive</div>
-  </div> -->
-
-<div class="container-fluid">
-  <div class="row text-center">
-    <div class="col-xs-1"><i class="fa fa-minus-circle fa-5x"></i></div>
-    <div class="col-xs-10 colorBar"></div>
-    <div class="col-xs-1"><i class="fa fa-plus-circle fa-5x"></i></div>
-    <!-- <div class="col-xs-5ths text-center" id="neg1">{{posTweets}}</div>
-    <div class="col-xs-5ths text-center" id="neg2"></div>
-    <div class="col-xs-5ths text-center" id="neut">{{neutTweets}}</div>
-    <div class="col-xs-5ths text-center" id="pos1"></div>
-    <div class="col-xs-5ths text-center" id="pos2">{{negTweets}}</div> -->
+  <div class="container-fluid">
+    <div class="row text-center">
+      <div class="col-xs-1"><i class="fa fa-minus-circle fa-5x"></i></div>
+      <div class="col-xs-10 colorBar"></div>
+      <div class="col-xs-1"><i class="fa fa-plus-circle fa-5x"></i></div>
+    </div>
   </div>
-</div>
-<div class="container-fluid">
-  <div class="row" ng-controller="TabController">
-
-    <div class="col-xs-8 graphContainer">
-      <ul class="nav nav-pills">
-        <li ng-class="{ active: isSet(1) }">
-          <a href id="graphPill" ng-click="setTab(1)">G</a>
-        </li>
-        <li ng-class="{ active: isSet(2) }">
-          <a href id="mapPill" ng-click="setTab(2)">M</a>
-        </li>
-        <li ng-class="{ active: isSet(3) }">
-          <a href id="dataPill" ng-click="setTab(3)">D</a>
-        </li>
-        
-      </ul>
-
-      <div ng-show="isSet(1)">
-        <div linear-chart chart-data="graphData"></div>
-      </div>
-      <div ng-show="isSet(2)">
-        <div map-chart map-data="mapData"></div>
-      </div>
-      <div ng-show="isSet(3)">
-        <!-- <div map-chart map-data="mapData"></div> -->
-        <div class="dataContainer">
-          <h3 class="data">tweetCount: {{count}}</h3>
-          <h3 class="data">time Elapsed: {{clock}}</h3>  
+  <div class="container-fluid">
+    <div class="row" ng-controller="TabController">
+      <div class="col-xs-8 graphContainer">
+        <ul class="nav nav-pills">
+          <li ng-class="{ active: isSet(1) }">
+            <a href id="graphPill" ng-click="setTab(1)">G</a>
+          </li>
+          <li ng-class="{ active: isSet(2) }">
+            <a href id="mapPill" ng-click="setTab(2)">M</a>
+          </li>
+          <li ng-class="{ active: isSet(3) }">
+            <a href id="dataPill" ng-click="setTab(3)">D</a>
+          </li>
+        </ul>
+        <div ng-show="isSet(1)">
+          <div linear-chart chart-data="graphData"></div>
         </div>
+        <div ng-show="isSet(2)">
+          <div map-chart map-data="mapData"></div>
+        </div>
+        <div ng-show="isSet(3)">
+          <!-- <div map-chart map-data="mapData"></div> -->
+          <div class="dataContainer">
+            <h3 class="data">tweetCount: {{count}}</h3>
+            <h3 class="data">time Elapsed: {{clock}}</h3>  
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 tweetContainer">
+        <!-- <div class="col-xs-9"> -->
+          <form ng-submit="getTweets(vm.keyword)">
+            <!-- <label for="keyword">#keyword</label> -->
+            <input class="focus" type="text" ng-model="vm.keyword" id="keywordInput" placeholder="Enter a Keyword">
+            <!-- <input type="submit"> -->
+            <button class="btn btn-default" type="submit" id="keywordBtn" ng-click="activeButton" ng-class="{'active': isActive}"><i class="fa fa-power-off fa-2x"></i></button>
+            <span class="btn btn-default" id="resetBtn"><i class="fa fa-refresh fa-2x"></i></span>
+          </form>
+        <!-- </div> -->
+        <!-- <div class="col-xs-3"> -->
+        <!-- </div> -->
+        <!-- <div class="btn btn-default" ng-click="stopStream(); stopTimer()">stop stream</div> -->
+        <!-- <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span> -->
         
-      </div>
-
-      
-      
-    </div>
-    <div class="col-xs-4 tweetContainer">
-      <!-- <div class="col-xs-9"> -->
-        <form ng-submit="getTweets(vm.keyword)">
-          <!-- <label for="keyword">#keyword</label> -->
-          <input class="focus" type="text" ng-model="vm.keyword" id="keywordInput">
-          <!-- <input type="submit"> -->
-          <button class="btn btn-default" type="submit" id="keywordBtn" ng-click="activeButton" ng-class="{'active': isActive}"><i class="fa fa-power-off fa-2x"></i></button>
-          <span class="btn btn-default" id="resetBtn"><i class="fa fa-refresh fa-2x"></i></span>
-        </form>
-      <!-- </div> -->
-      <!-- <div class="col-xs-3"> -->
-      <!-- </div> -->
-      <!-- <div class="btn btn-default" ng-click="stopStream(); stopTimer()">stop stream</div> -->
-      <!-- <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span> -->
-      
-      <div ng-repeat="t in tweets track by $index">
-        <div class="tweetStream">{{t.user.screen_name}} {{t.text}} {{t.user.location}} {{t.score}}</div>
+        <div ng-repeat="t in tweets track by $index">
+          <div class="tweetStream">{{t.user.screen_name}} {{t.text}} {{t.user.location}} {{t.score}}</div>
+        </div>
       </div>
     </div>
-  </div>
-
-    
   </div>
 </div>
 

@@ -1,3 +1,4 @@
+/*BACKGROUND*/
 body { 
   background: url(http://www.sqproductions.com/wp-content/uploads/2014/05/Leather.jpeg) no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -5,7 +6,8 @@ body {
   -o-background-size: cover;
   background-size: cover;
 }
-/*navbar*/
+
+/*NAVBAR*/
 .navbar { 
   /*background-color: #222222;*/
   min-height: 80px;
@@ -49,9 +51,6 @@ i.fa-twitter-square {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
-
-
 .navbar-inverse .navbar-nav>li>a { 
   color: #999999
 }
@@ -91,6 +90,13 @@ i.fa-twitter-square {
 
 }
 
+.help{
+  position: relative;
+  right: 370px;
+  margin-top: 5px;
+  /*font-size: 30;*/
+}
+
 a.logout{
   font-size: 30px;
   margin-top: 10px;
@@ -102,6 +108,7 @@ a.logout:hover{
   color: #FF5107;
 }
 
+/*COLOR BAR*/
 div.colorBar{/* Permalink - http://colorzilla.com/gradient-editor/#ff5107+0,ffd37c+25,eafd89+50,7dbca9+75,0bba4e+100 */
   background: #ff5107; /* Old browsers */
   background: -moz-linear-gradient(left, #ff5107 0%, #ffd37c 25%, #eafd89 50%, #7dbca9 75%, #0bba4e 100%); /* FF3.6-15 */
@@ -142,14 +149,11 @@ div.colorBar{/* Permalink - http://colorzilla.com/gradient-editor/#ff5107+0,ffd3
 }
 */
 
-.streamBtn{
-  margin-top: 20px;
-}
-
+/*CONTAINERS*/
 .tweetContainer{
   margin-top: 10px;
   height: 530px;
-  border: 2px solid gray;
+  border: 4px solid #999999;
   border-radius: 5px;
   overflow-y: scroll;
   /*overflow-y: scroll;*/
@@ -160,22 +164,11 @@ div.colorBar{/* Permalink - http://colorzilla.com/gradient-editor/#ff5107+0,ffd3
   height: 530px;
 }
 
-/*data tabs*/
-/*.nav-pills > li.active > a, .btn-primary {
-  background-color: #6C6C6C !important;
-  border-color: #6C6C6C !important;
-  height: 40px;
-  line-height: 25px;
-  width: 40px;
-  border-radius: 50%; 
-}*/
-
-
-
+/*DATA TABS*/
 .nav-pills > li > a{ 
   display: inline;
   height: 30px;
-  line-height: 25px;
+  line-height: 30px;
   width: 30px;
   border-radius: 50%; 
   background: #464646;
@@ -186,7 +179,6 @@ div.colorBar{/* Permalink - http://colorzilla.com/gradient-editor/#ff5107+0,ffd3
   box-shadow: 0 0 3px gray;
   font-size:15px;
   font-weight:bold;
-  
 }
 
 .nav-pills > li > a:hover{
@@ -201,17 +193,10 @@ div.colorBar{/* Permalink - http://colorzilla.com/gradient-editor/#ff5107+0,ffd3
   margin-bottom: 15px;
 }
 
-/*.nav-pills > li > a:hover{
-  background: #FF5107;
-}*/
-
 .active #graphPill{
   background: #FF5107;
 }
-/*.active #graphPill{
-  background: #FF5107;
-  background: #999999;
-}*/
+
 .active #mapPill{
   background: #FFBF6A;
 }
@@ -219,29 +204,13 @@ div.colorBar{/* Permalink - http://colorzilla.com/gradient-editor/#ff5107+0,ffd3
   background: #0BBA4E;
 }
 
-/*svg{
-  fill: white;
-}*/
-
+/*D3 STYLING*/
 path.domain{
   fill: #999999;
 }
 .tick text{
   fill: #999999;
 }
-/*MAP*/
-/*.land {
-  fill: #222;
-}
-
-.state-boundary {
-  fill: none;
-  stroke: #fff;
-}*/
-
-/*path.state23{
-  fill: red;
-}*/
 
 .state-boundary {
   fill: none;
@@ -254,46 +223,39 @@ path.domain{
   fill: none;
   stroke: black;
 }
-/*.all-states{
-  fill:none;
-}*/
 
-h1{
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 16px;
-}
 .tick{
   stroke-dasharray: 1, 2;
 }
 
-/*TOPOJSON*/
-/*.states {
-        stroke: #000;
-        fill-opacity: .7;
-    }
-
-    .symbol {
-        fill: steelblue;
-        fill-opacity: .8;
-        stroke: #fff;
-    }*/
-
-
 /*TWEET STREAM/BUTTONS*/
 #keywordInput {
-  width: 260px;
+  width: 255px;
   height: 60px;
   /*padding: 10px;*/
   border: solid 5px #464646;
   transition: border 0.3s;
   border-radius: 5px;
   margin-top: 25px;
+  margin-right: 5px;
   font-size: 20px;
   background: #999999;
 }
 #keywordInput:focus{
-  border: solid 5px #262626;
+  border: solid 5px black;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #464646;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #464646;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #464646;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #464646;
 }
 
 #keywordBtn{
