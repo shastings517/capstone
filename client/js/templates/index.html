@@ -66,7 +66,7 @@
 <div class="container-fluid">
   <div class="row" ng-controller="TabController">
 
-    <div class="col-xs-8 graphContainer text-center">
+    <div class="col-xs-8 graphContainer">
       <ul class="nav nav-pills">
         <li ng-class="{ active: isSet(1) }">
           <a href id="graphPill" ng-click="setTab(1)">G</a>
@@ -88,8 +88,11 @@
       </div>
       <div ng-show="isSet(3)">
         <!-- <div map-chart map-data="mapData"></div> -->
-        <h3>tweetCount: {{count}}</h3>
-        <h3>time Elapsed: {{clock}}</h3>
+        <div class="dataContainer">
+          <h3 class="data">tweetCount: {{count}}</h3>
+          <h3 class="data">time Elapsed: {{clock}}</h3>  
+        </div>
+        
       </div>
 
       
@@ -111,7 +114,7 @@
       <!-- <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span> -->
       
       <div ng-repeat="t in tweets track by $index">
-        <p>{{t.user.screen_name}} {{t.text}} {{t.user.location}} {{t.score}}</p>
+        <div class="tweetStream">{{t.user.screen_name}} {{t.text}} {{t.user.location}} {{t.score}}</div>
       </div>
     </div>
   </div>

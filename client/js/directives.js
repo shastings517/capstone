@@ -55,7 +55,7 @@ app.directive("linearChart", function($parse, $window) {
 
         svg.append("svg:g")
            .attr("class", "x axis")
-           .attr("transform", "translate(0,216)")
+           .attr("transform", "translate(0,217)")
            .call(xAxisGen);
 
          svg.append("svg:g")
@@ -66,7 +66,7 @@ app.directive("linearChart", function($parse, $window) {
          svg.append("svg:path")
             .attr({
               d: lineFun(graphData),
-              "stroke": "7DBCA9",
+              "stroke": "#7DBCA9",
               "stroke-width": 2,
               "fill": "none",
               "class": pathClass
@@ -107,7 +107,8 @@ app.directive("mapChart", function($parse, $window) {
       var rawSvg = elem.find("svg")[0];
       var svg = d3.select(rawSvg)
           .attr("width", w)
-          .attr("height", h);
+          .attr("height", h)
+          .style("fill", "white");
 
       finalArr = [];
 

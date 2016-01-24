@@ -41,10 +41,11 @@ body {
 }
 i.fa-twitter-square { 
   /*color: #FF5107*/
-  background: -moz-linear-gradient(left, #ff5107 0%, #ffd37c 25%, #eafd89 50%, #7dbca9 75%, #0bba4e 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(left, #ff5107 0%,#ffd37c 25%,#eafd89 50%,#7dbca9 75%,#0bba4e 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to right, #ff5107 0%,#ffd37c 25%,#eafd89 50%,#7dbca9 75%,#0bba4e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff5107', endColorstr='#0bba4e',GradientType=1 ); /* IE6-9 */
+  background: #ff5107; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #ff5107 0%, #ffd37c 25%, #eafd89 50%, #7dbca9 75%, #0bba4e 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #ff5107 0%,#ffd37c 25%,#eafd89 50%,#7dbca9 75%,#0bba4e 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #ff5107 0%,#ffd37c 25%,#eafd89 50%,#7dbca9 75%,#0bba4e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff5107', endColorstr='#0bba4e',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -178,8 +179,8 @@ div.colorBar{/* Permalink - http://colorzilla.com/gradient-editor/#ff5107+0,ffd3
   width: 30px;
   border-radius: 50%; 
   background: #464646;
-  border: 2px solid #f5f5f5;
-  color:#f5f5f5;
+  border: 2px solid #999999;
+  color:#999999;
   text-align:center;
   text-decoration:none;
   box-shadow: 0 0 3px gray;
@@ -218,14 +219,13 @@ div.colorBar{/* Permalink - http://colorzilla.com/gradient-editor/#ff5107+0,ffd3
   background: #0BBA4E;
 }
 
-svg{
+/*svg{
   fill: white;
-}
+}*/
 
 path.domain{
   fill: #999999;
 }
-
 .tick text{
   fill: #999999;
 }
@@ -263,8 +263,7 @@ h1{
   font-weight: bold;
   font-size: 16px;
 }
-.tick
-{
+.tick{
   stroke-dasharray: 1, 2;
 }
 
@@ -279,15 +278,19 @@ h1{
         fill-opacity: .8;
         stroke: #fff;
     }*/
+
+
+/*TWEET STREAM/BUTTONS*/
 #keywordInput {
   width: 260px;
   height: 60px;
-  padding: 10px;
+  /*padding: 10px;*/
   border: solid 5px #464646;
   transition: border 0.3s;
   border-radius: 5px;
   margin-top: 25px;
   font-size: 20px;
+  background: #999999;
 }
 #keywordInput:focus{
   border: solid 5px #262626;
@@ -298,9 +301,9 @@ h1{
   width:70px;
   height:70px;
   line-height:70px;
-  border: 2px solid #f5f5f5;
+  border: 2px solid #999999;
   border-radius: 50%;
-  color:#f5f5f5;
+  color:#999999;
   text-align:center;
   text-decoration:none;
   background: #464646;
@@ -320,9 +323,9 @@ h1{
   width:70px;
   height:70px;
   line-height:70px;
-  border: 2px solid #f5f5f5;
+  border: 2px solid #999999;
   border-radius: 50%;
-  color:#f5f5f5;
+  color:#999999;
   text-align:center;
   text-decoration:none;
   background: #464646;
@@ -337,6 +340,14 @@ h1{
 
 .active{
   color: #0BBA4E;
+}
+
+.data{
+  color: #999999;
+}
+
+.tweetStream{
+  color:#999999;
 }
 
 /*5THS COLUMNS*/

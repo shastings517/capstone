@@ -24,15 +24,15 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
   //   $scope.graphData.push({hour: hour, sales: sales});
   // }, 1000, 10);
   
-  $scope.isActive = false;
-  $scope.activeButton = function() {
-    $scope.isActive = !$scope.isActive;
-  };
+  // $scope.isActive = false;
+  // $scope.activeButton = function() {
+  //   $scope.isActive = !$scope.isActive;
+  // };
 
-  $scope.clearTweets = function(){
-    $scope.tweets = [];
+  // $scope.clearTweets = function(){
+  //   $scope.tweets = [];
 
-  };
+  // };
 
   $scope.getTweets = function(keyword){
 
