@@ -101,7 +101,6 @@ app.directive("mapChart", function($parse, $window) {
 
       var exp = $parse(attrs.mapData);
       mapData = exp(scope);
-      // console.log(mapData);
           
       var d3 = $window.d3;
       var rawSvg = elem.find("svg")[0];
@@ -127,8 +126,6 @@ app.directive("mapChart", function($parse, $window) {
         // return an array where the state
         if(states){
           finalArr = [];
-          // state.score = 0;
-          // console.log();
           states.features.forEach(function(state){
             return mapData.forEach(function(el){
               if(el.place){
@@ -151,19 +148,12 @@ app.directive("mapChart", function($parse, $window) {
               }
             });
           });
-          // console.log("FINAL", finalArr)
-          // console.log(el.score)
         }
-        // svg.selectAll("path")
-        //         .style("fill","white");
 
         svg.selectAll("path")
                 .data(finalArr, function(d){
                   return d.id;
                 })
-                // .enter()
-                
-                // .style("fill", "white")
                 .style("fill-opacity", function(d){
                   if(d.score <= -20){
                     return 1;
@@ -192,11 +182,8 @@ app.directive("mapChart", function($parse, $window) {
                   if(d.score <= 20 && d.score > 15){
                     return 1;
                   }
-                  
-
-
-                  
-                }).style("fill", function(d){
+                })
+                .style("fill", function(d){
                   if(d.score < 0){
                     return "FF5107";
                   }
@@ -206,26 +193,10 @@ app.directive("mapChart", function($parse, $window) {
                   if(d.score === 0){
                     return "EAFD89";
                   }
+                  // if(d.length === 1){
+                  //   return "#999999";
+                  // }
                 });
-                // .transition()
-                // // .duration(25)
-                // .style("fill", function(d,i){
-                //   if(d.score <= -8){
-                //     return "FF9B6D";
-                //   }
-                //   if(d.score <= -5 && d.score > -8){
-                //     return "FFD37C";
-                //   }
-                //   if(d.score <= 0 && d.score > -5){
-                //     return "EAFD89";
-                //   }
-                //   if(d.score <= 5 && d.score > 0){
-                //     return "7DBCA9";
-                //   }
-                //   if(d.score < 13){
-                //     return "57BB7E";
-                //   }
-                // });
       });     
 
       d3.json("/js/state-names.json", function(error, us) {
