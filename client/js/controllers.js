@@ -1,10 +1,10 @@
 //TWITTER & SCORING LOGIC
 app.controller('TweetController', ['$scope', '$interval', 'socket', function($scope, $interval, socket) {
-
   
-  // $scope.posTweets = 0;
-  // $scope.negTweets = 0;
-  // $scope.neutTweets = 0;
+  $scope.posTweets = 0;
+  $scope.negTweets = 0;
+  $scope.neutTweets = 0;
+  $scope.sentScore = 0;
   
   $scope.count = 0;
   $scope.tweets = [];
@@ -16,6 +16,10 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
 
   $scope.resetData = function(){
     $scope.count = 0;
+    $scope.posTweets = 0;
+    $scope.negTweets = 0;
+    $scope.neutTweets = 0;
+    $scope.sentScore = 0;
     $scope.tweets = [];
     $scope.graphData = [{time:0, score:0}];
     $scope.mapData = [];
@@ -29,6 +33,9 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
     var graphData = $scope.graphData;
     var tweets = $scope.tweets;
     var mapData = $scope.mapData;
+    // var posTweets = $scope.posTweets;
+    // var negTweets = $scope.negTweets;
+    // var neutTweets = $scope.neutTweets;
 
     $scope.startBtnIsActive = !$scope.startBtnIsActive;
     $scope.streamCount ++;
@@ -54,7 +61,20 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
           this.score = score;
         }
         
+        if(tweet.score > 0){
+          $scope.posTweets++;
+        }
+        else if(tweet.score < 0){
+          $scope.negTweets++;
+        }
+        else{
+          $scope.neutTweets++;
+        }
+        if(tweet){
+          $scope.sentScore += tweet.score;
+        }
         tweets.push(tweet);
+
 
         graphData.push(new GraphDatum(tweet.time, tweet.score));
         
