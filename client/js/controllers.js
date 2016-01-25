@@ -5,7 +5,6 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
   // $scope.posTweets = 0;
   // $scope.negTweets = 0;
   // $scope.neutTweets = 0;
-  // $scope.showModal = false;
   
   $scope.count = 0;
   $scope.tweets = [];
@@ -13,12 +12,7 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
   $scope.mapData = [{place:null, score:0}];
   $scope.startBtnIsActive = false;
   $scope.streamCount = 0;
-  // $scope.vm = {};
-  // $scope.vm = ;
   
-  // $scope.open = function(){
-  //   $scope.showModal = !$scope.showModal;
-  // };
 
   $scope.resetData = function(){
     $scope.count = 0;
@@ -27,29 +21,7 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
     $scope.mapData = [];
     $scope.startBtnIsActive = false;
     $scope.streamCount = 0;
-    // $scope.vm.setPristine();
   };
-  //make graph data array of objects on back end with timestamp?
-  // $scope.graphData = [
-  //     {time: 1:00pm ,score: 54},
-  //   ];
-  // }]);
-
-  // $interval(function() {
-  //   var hour = $scope.graphData.length + 1;
-  //   var sales = Math.round(Math.random() * 100);
-
-  //   $scope.graphData.push({hour: hour, sales: sales});
-  // }, 1000, 10);
-  
-  // $scope.activeButton = function() {
-  //   $scope.isActive = !$scope.isActive;
-  // };
-
-  // $scope.clearTweets = function(){
-  //   $scope.tweets = [];
-
-  // };
 
   $scope.getTweets = function(keyword){
 
@@ -62,19 +34,12 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
     $scope.streamCount ++;
     console.log($scope.streamCount);
 
-    // tweets = [];
-    
-    // var posTweets = $scope.posTweets;
     function stopStream(){
       socket.emit('stop');
     }
-    // console.log(posTweetsL);
-    // var negTweets = $scope.negTweets;
-
-    // var neutTweets = $scope.neutTweets;
 
     if($scope.startBtnIsActive){
-      console.log("working")
+      console.log("working");
       socket.emit('keyword', keyword);
 
       socket.on('tweet', function(tweet) {
@@ -89,7 +54,6 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
           this.score = score;
         }
         
-        
         tweets.push(tweet);
 
         graphData.push(new GraphDatum(tweet.time, tweet.score));
@@ -97,13 +61,11 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
         //tweet place is an array of words. tweeter's location
         mapData.push(new MapDatum(tweet.place, tweet.score));
 
-      // console.log(graphData);
         if (tweet && !tweet.limit) {
           $scope.count++;
         }
       });
     }
-
 
     if($scope.startBtnIsActive === false){
       console.log("disconnected");
@@ -146,42 +108,6 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
       // $scope.vm.keyword = '';
     
   
-
-  //NEED TO FIX STREAM/SOCKET STOP LOGIC
-  // $scope.stopStream = function(){
-  //   // $scope.tweets = [];
-  //   socket.emit('stop');
-  //   // socket.disconnect();
-  // };
-
-  //TIMER
-  
-
-  // $scope.startTimer = function() {
-  //   if (!interval) {
-  //     offset   = Date.now();
-  //     interval = setInterval(update);
-  //   }
-  // };
-
-  // $scope.stopTimer = function() {
-  //   if (interval) {
-  //     clearInterval(interval);
-  //     interval = null;
-  //   }
-  // };
-
-  // function update() {
-  //   clock += delta();  
-  // }
-
-  // function delta() {
-  //   var now = Date.now(),
-  //       d   = now - offset;
-    
-  //   offset = now;
-  //   return d;
-  // }
 //MODAL CONTROLLER
 app.controller('ModalController', function ($scope) {
   $scope.showModal = false;
@@ -211,7 +137,6 @@ app.controller("TabController", function($scope){
     return $scope.tab === tabNum;
   };
 });
-
 
 //AUTHENTICATION LOGIC
 app.controller("LoginController", function($scope, $auth, $location){

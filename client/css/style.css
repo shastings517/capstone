@@ -286,8 +286,6 @@ path.domain{
   background: #262626;
 }
 
-
-
 #resetBtn{
   /*display: inline;*/
   width:70px;
@@ -321,11 +319,33 @@ path.domain{
 .data{
   color: #999999;
 }
-
-.tweetStream{
+/*TWEET STREAM*/
+/*.tweetStream{
+  color:#999999;
+}*/
+#tUsername{
+  color:#7DBCA9;
+  font-weight: bold;
+}
+#tText{
   color:#999999;
 }
+#tLocation{
 
+}
+#tScore{
+  /*color: #7DBCA9;*/
+  font-weight: bold;
+}
+.pos{
+  color:#0bba4e;
+}
+.neut{
+  color:#eafd89;
+}
+.neg{
+  color:#ff5107;
+}
 /*MODAL*/
 .modal-header, .modal-body{
   background: #2C2C2C;
@@ -372,8 +392,4 @@ button.close{
   position: relative;
   right: -100px;
 }
-/*.signIn{
-  cursor: pointer;
-}
-*/
 
