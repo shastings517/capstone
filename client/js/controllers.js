@@ -1,16 +1,34 @@
 //TWITTER & SCORING LOGIC
 app.controller('TweetController', ['$scope', '$interval', 'socket', function($scope, $interval, socket) {
 
-  $scope.count = 0;
   
   // $scope.posTweets = 0;
   // $scope.negTweets = 0;
   // $scope.neutTweets = 0;
+  // $scope.showModal = false;
   
+  $scope.count = 0;
   $scope.tweets = [];
-  $scope.graphData = [{time:Date.now(), score:0}];
+  $scope.graphData = [{time:0, score:0}];
   $scope.mapData = [{place:null, score:0}];
+  $scope.startBtnIsActive = false;
+  $scope.streamCount = 0;
+  // $scope.vm = {};
+  // $scope.vm = ;
   
+  // $scope.open = function(){
+  //   $scope.showModal = !$scope.showModal;
+  // };
+
+  $scope.resetData = function(){
+    $scope.count = 0;
+    $scope.tweets = [];
+    $scope.graphData = [{time:0, score:0}];
+    $scope.mapData = [];
+    $scope.startBtnIsActive = false;
+    $scope.streamCount = 0;
+    // $scope.vm.setPristine();
+  };
   //make graph data array of objects on back end with timestamp?
   // $scope.graphData = [
   //     {time: 1:00pm ,score: 54},
@@ -24,8 +42,6 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
   //   $scope.graphData.push({hour: hour, sales: sales});
   // }, 1000, 10);
   
-  $scope.startBtnIsActive = false;
-  $scope.streamIsActive = false;
   // $scope.activeButton = function() {
   //   $scope.isActive = !$scope.isActive;
   // };
@@ -37,10 +53,14 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
 
   $scope.getTweets = function(keyword){
 
-    var tweets = $scope.tweets;
+    $scope.graphData = [{time:Date.now(), score:0}];
     var graphData = $scope.graphData;
+    var tweets = $scope.tweets;
     var mapData = $scope.mapData;
+
     $scope.startBtnIsActive = !$scope.startBtnIsActive;
+    $scope.streamCount ++;
+    console.log($scope.streamCount);
 
     // tweets = [];
     
@@ -87,7 +107,7 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
 
     if($scope.startBtnIsActive === false){
       console.log("disconnected");
-      $scope.streamIsActive = !$scope.streamIsActive;
+      // $scope.streamCount ++;
       stopStream();
     }
   };
@@ -162,7 +182,12 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
   //   offset = now;
   //   return d;
   // }
-  
+app.controller('ModalController', function ($scope) {
+  $scope.showModal = false;
+  $scope.toggleModal = function(){
+      $scope.showModal = !$scope.showModal;
+  };
+});
   
 
 

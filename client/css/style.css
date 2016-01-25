@@ -51,6 +51,8 @@ i.fa-twitter-square {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+
 .navbar-inverse .navbar-nav>li>a { 
   color: #999999
 }
@@ -312,8 +314,8 @@ path.domain{
 }
 
 #keywordBtn.activeBtn {
-  color: #FF5107;
-  /*background:#FF5107; */
+  /*color: #FF5107;*/
+  background:#FF5107; 
 }
 
 .data{
@@ -323,6 +325,17 @@ path.domain{
 .tweetStream{
   color:#999999;
 }
+
+/*MODAL*/
+.modal-header, .modal-body{
+  background: #2C2C2C;
+  color: #999999;
+}
+button.close{
+  color: white;
+  /*background: white;*/
+}
+
 
 /*5THS COLUMNS*/
 .col-xs-5ths,
