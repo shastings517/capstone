@@ -35,8 +35,8 @@ var T = new Twit({
 
 
 var sentDictionary = fs.readFileSync('server/lib/AFINN-111.txt', 'utf8').replace(/\t/g, ' ').split('\n');
-var posArray = fs.readFileSync('server/lib/POS.txt', 'utf8').split('\n');
-var negArray = fs.readFileSync('server/lib/NEG.txt', 'utf8').split('\n');
+// var posArray = fs.readFileSync('server/lib/POS.txt', 'utf8').split('\n');
+// var negArray = fs.readFileSync('server/lib/NEG.txt', 'utf8').split('\n');
 
 var statesInfo = fs.readFileSync('server/lib/MAP.txt', 'utf8').replace(/\s+/g, ' ').split(' ');
 // fs.appendFile('server/lib/citylist.txt', (cities + "\n"), "UTF-8");

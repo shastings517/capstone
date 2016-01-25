@@ -1,6 +1,6 @@
 app.factory('socket', function(socketFactory) {
   return socketFactory({
-    ioSocket: io.connect('http://localhost:3000' || 'https://tweeter-app-capstone.herokuapp.com')
+    ioSocket: io.connect('https://tweeter-app-capstone.herokuapp.com'|| 'http://localhost:3000')
   });
 });
 
