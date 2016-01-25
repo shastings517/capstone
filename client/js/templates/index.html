@@ -48,10 +48,10 @@
         <div ng-show="isSet(3)">
           <div class="dataContainer">
             <h3 class="data">Total Tweet Count: {{count}}</h3>
-            <h3 class="data">Positive Tweets: {{posTweets}}</h3>  
-            <h3 class="data">Negative Tweets: {{negTweets}}</h3>  
-            <h3 class="data">Neutral Tweets: {{neutTweets}}</h3>  
-            <h3 class="data">Overall Sentiment Score: {{sentScore}}</h3>  
+            <h3 class="data" id="posT">Positive Tweets: {{posTweets}}</h3>  
+            <h3 class="data" id="negT">Negative Tweets: {{negTweets}}</h3>  
+            <h3 class="data" id="neutT">Neutral Tweets: {{neutTweets}}</h3>  
+            <h3 class="data" ng-class="{'pos': sentScore > 0, 'neut': sentScore === 0, 'neg': sentScore < 0}">Overall Sentiment Score: {{sentScore}}</h3>  
           </div>
         </div>
       </div>

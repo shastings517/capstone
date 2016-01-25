@@ -316,15 +316,24 @@ path.domain{
   background:#FF5107; 
 }
 
+/*DATA PAGE*/
 .data{
   color: #999999;
   margin-left: 30px;
   margin-top: 30px;
 }
+#posT{
+  color:#0bba4e;
+}
+#negT{
+  color:#ff5107;
+}
+#neutT{
+  color:#eafd89;
+}
+
+
 /*TWEET STREAM*/
-/*.tweetStream{
-  color:#999999;
-}*/
 #tUsername{
   color:#7DBCA9;
   font-weight: bold;
