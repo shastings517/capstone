@@ -318,18 +318,35 @@ path.domain{
 
 /*DATA PAGE*/
 .data{
-  color: #999999;
+  /*color: black;*/
   margin-left: 30px;
   margin-top: 30px;
+  padding: 10 10 10 10;
+/*  background: rgba(153, 153, 153, .5);*/
+}
+#totalT{
+  color: black;
+  background: rgba(153, 153, 153, .5);
+
 }
 #posT{
   color:#0bba4e;
+  background: rgba(153, 153, 153, .5);
+
 }
 #negT{
   color:#ff5107;
+  background: rgba(153, 153, 153, .5);
+
 }
 #neutT{
   color:#eafd89;
+  background: rgba(153, 153, 153, .5);
+
+}
+#sentScore{
+  background: rgba(153, 153, 153, .5);
+
 }
 
 

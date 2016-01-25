@@ -67,7 +67,7 @@ app.directive("linearChart", function($parse, $window) {
             .attr({
               d: lineFun(graphData),
               "stroke": "#7DBCA9",
-              "stroke-width": 2,
+              "stroke-width": 4,
               "fill": "none",
               "class": pathClass
          });
