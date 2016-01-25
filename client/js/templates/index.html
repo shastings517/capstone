@@ -89,8 +89,8 @@
             <!-- <label for="keyword">#keyword</label> -->
             <input type="text" ng-model="vm.keyword" id="keywordInput" placeholder="Enter a Keyword" autofocus>
             <!-- <input type="submit"> -->
-            <button class="btn btn-default" type="submit" id="keywordBtn" ng-click="getTweets(vm.keyword)" ng-class="{'activeBtn': startBtnIsActive, 'inactiveBtn': !startBtnIsActive}" ng-disabled="!vm.keyword || streamCount === 2"><i class="fa fa-power-off fa-2x"></i></button>
-            <span class="btn btn-default" id="resetBtn" ng-click="resetData(); vm.keyword = ''"><i class="fa fa-refresh fa-2x"></i></span>
+            <button class="btn btn-default" type="submit" id="keywordBtn" ng-click="getTweets(vm.keyword)" ng-class="{'activeBtn': startBtnIsActive, 'inactiveBtn': !startBtnIsActive}" ng-disabled="!vm.keyword || streamCount >= 2"><i class="fa fa-power-off fa-2x"></i></button>
+            <span class="btn btn-default" id="resetBtn" ng-click="resetData(); vm.keyword = ''" ng-disabled="startBtnIsActive"><i class="fa fa-refresh fa-2x"></i></span>
           </form>
         <!-- </div> -->
         <!-- <div class="col-xs-3"> -->

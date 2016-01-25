@@ -107,7 +107,7 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
 
     if($scope.startBtnIsActive === false){
       console.log("disconnected");
-      // $scope.streamCount ++;
+      // $scope.streamCount <= 0;
       stopStream();
     }
   };
@@ -182,6 +182,7 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
   //   offset = now;
   //   return d;
   // }
+//MODAL CONTROLLER
 app.controller('ModalController', function ($scope) {
   $scope.showModal = false;
   $scope.toggleModal = function(){
@@ -191,7 +192,7 @@ app.controller('ModalController', function ($scope) {
   
 
 
-//SINGLE PAGE CONTROLS 
+//SINGLE PAGE CONTROLLER 
 app.controller("TabController", function($scope){
   $scope.tab = 1;
 
