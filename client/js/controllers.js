@@ -189,6 +189,13 @@ app.controller('ModalController', function ($scope) {
       $scope.showModal = !$scope.showModal;
   };
 });
+
+// app.controller('AboutModalController', function ($scope) {
+//   $scope.showAboutModal = false;
+//   $scope.toggleAboutModal = function(){
+//       $scope.showAboutModal = !$scope.showAboutModal;
+//   };
+// });
   
 
 
