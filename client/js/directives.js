@@ -21,7 +21,7 @@ app.directive("linearChart", function($parse, $window) {
 
       function setChartParameters(){
         xScale = d3.scale.linear()
-                   .domain([graphData[0].time, graphData[0].time + 50000])
+                   .domain([graphData[0].time, graphData[0].time + 100000])
                    .range([padding, rawSvg.clientWidth - padding]);
 
         yScale = d3.scale.linear()
@@ -150,53 +150,99 @@ app.directive("mapChart", function($parse, $window) {
           });
         }
 
+        
         svg.selectAll("path")
-                .data(finalArr, function(d){
-                  return d.id;
-                })
-                .style("fill-opacity", function(d){
-                  if(d.score <= -20){
-                    return 1;
-                  }
-                  if(d.score <= -15 && d.score > -20){
-                    return 0.8;
-                  }
-                  if(d.score <= -10 && d.score > -15){
-                    return 0.6;
-                  }
-                  if(d.score <= -5 && d.score > -10){
-                    return 0.4;
-                  }
-                  if(d.score < 0 && d.score > -5){
-                    return 0.2;
-                  }
-                  if(d.score <= 5 && d.score > 0){
-                    return 0.2;
-                  }
-                  if(d.score <= 10 && d.score > 5){
-                    return 0.6;
-                  }
-                  if(d.score <= 15 && d.score > 10){
-                    return 0.8;
-                  }
-                  if(d.score <= 20 && d.score > 15){
-                    return 1;
-                  }
-                })
-                .style("fill", function(d){
-                  if(d.score < 0){
-                    return "FF5107";
-                  }
-                  if(d.score > 0){
-                    return "0BBA4E";
-                  }
-                  if(d.score === 0){
-                    return "EAFD89";
-                  }
+                        .data(finalArr, function(d){
+                          return d.id;
+                        })
+                        .style("fill-opacity", function(d){
+                          if(d.score <= -20){
+                            return 1;
+                          }
+                          if(d.score <= -15 && d.score > -20){
+                            return 0.8;
+                          }
+                          if(d.score <= -10 && d.score > -15){
+                            return 0.6;
+                          }
+                          if(d.score <= -5 && d.score > -10){
+                            return 0.4;
+                          }
+                          if(d.score < 0 && d.score > -5){
+                            return 0.2;
+                          }
+                          if(d.score <= 5 && d.score > 0){
+                            return 0.2;
+                          }
+                          if(d.score <= 10 && d.score > 5){
+                            return 0.6;
+                          }
+                          if(d.score <= 15 && d.score > 10){
+                            return 0.8;
+                          }
+                          if(d.score <= 20 && d.score > 15){
+                            return 1;
+                          }
+                        })
+                        .style("fill", function(d){
+                          if(d.score < 0){
+                            return "FF5107";
+                          }
+                          if(d.score > 0){
+                            return "0BBA4E";
+                          }
+                          if(d.score === 0){
+                            return "EAFD89";
+                          }
+                        });
+        // svg.selectAll("path")
+        //         .data(finalArr, function(d){
+        //           return d.id;
+        //         })
+        //         //http://colorzilla.com/gradient-editor/#ff5107+0,ffd37c+25,eafd89+50,7dbca9+75,0bba4e+100 
+        //         .style("fill", function(d){
+        //           if(d.score <= -20){
+        //             return "#ff5107";
+        //           }
+        //           if(d.score <= -15 && d.score > -20){
+        //             return "#FF903F";
+        //           }
+        //           if(d.score <= -10 && d.score > -15){
+        //             return "#ffd37c";
+        //           }
+        //           if(d.score <= -5 && d.score > -10){
+        //             return "#F5E682";
+        //           }
+        //           if(d.score < 0 && d.score > -5){
+        //             return "#eafd89";
+        //           }
+        //           if(d.score <= 5 && d.score > 0){
+        //             return "#B7DE98";
+        //           }
+        //           if(d.score <= 10 && d.score > 5){
+        //             return "#7dbca9";
+        //           }
+        //           if(d.score <= 15 && d.score > 10){
+        //             return "#43BB7A";
+        //           }
+        //           if(d.score <= 20 && d.score > 15){
+        //             return "#0BBA4E";
+        //           }
+        //         });
+                // .style("fill", function(d){
+                //   if(d.score < 0){
+                //     return "FF5107";
+                //   }
+                //   if(d.score > 0){
+                //     return "0BBA4E";
+                //   }
+                //   if(d.score === 0){
+                //     return "EAFD89";
+                //   }
                   // if(d.length === 1){
                   //   return "#999999";
                   // }
-                });
+                // });
       });     
 
       d3.json("/js/state-names.json", function(error, us) {

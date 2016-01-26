@@ -22,7 +22,7 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
     $scope.sentScore = 0;
     $scope.tweets = [];
     $scope.graphData = [{time:0, score:0}];
-    $scope.mapData = [];
+    $scope.mapData = [{place:null, score:0}];
     $scope.startBtnIsActive = false;
     $scope.streamCount = 0;
   };
@@ -38,6 +38,7 @@ app.controller('TweetController', ['$scope', '$interval', 'socket', function($sc
     // var neutTweets = $scope.neutTweets;
 
     $scope.startBtnIsActive = !$scope.startBtnIsActive;
+    // if($scope.startBtnIsActive && )
     $scope.streamCount ++;
     console.log($scope.streamCount);
 
